@@ -21,14 +21,21 @@ To use this skill, mention it explicitly in your prompts to your AI assistant:
 
 ## Installation
 
-To install this skill in Gemini or other "vibe coding" AI tools that support the `.agents` specification:
+To install this skill in Gemini CLI or other "vibe coding" AI tools that support the `.agents` specification:
 
-1. **Direct Copy (Recommended):** Copy the entire `.agents` folder from this repository into the root directory of your project workspace. If you are using Gemini, it will automatically detect and load the skill.
-2. **Manual Installation:** 
-   * Create a folder named `.agents/skills/whatsapp-flow-gen/` in your workspace root.
-   * Copy the `SKILL.md` (and any other related files like `RULES.md` depending on the skill schema) into this new directory.
+### Option 1: Gemini CLI (Recommended)
+Run the following command in your project root:
+
+```bash
+gemini skills install https://github.com/kritikumarb/whatsapp-skills.git --path .agents/skills/whatsapp-flow-gen
+```
+
+### Option 2: Direct Copy
+Copy the entire `.agents` folder from this repository into the root directory of your project workspace. Gemini will automatically detect and load the skill.
+
+### Option 3: Manual Installation
+1. Create a folder named `.agents/skills/whatsapp-flow-gen/` in your workspace root.
+2. Copy the `SKILL.md` and related files from this repository into that directory.
 
 ## Workspace Data
 The `whatsapp-flow-gen-workspace` directory contains the evaluation history and iterations used to refine the skill.
-
-gemini skills install https://github.com/kritikumarb/whatsapp-skills.git --path .agents/skills/whatsapp-flow-gen
