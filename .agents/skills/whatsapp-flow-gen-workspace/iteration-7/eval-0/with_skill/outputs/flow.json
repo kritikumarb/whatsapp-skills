@@ -1,0 +1,61 @@
+{
+  "version": "7.1",
+  "screens": [
+    {
+      "id": "SURVEY_SCREEN",
+      "title": "Fruit Survey",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Tell us about yourself"
+          },
+          {
+            "type": "TextInput",
+            "name": "user_name",
+            "label": "Your Name",
+            "input-type": "text",
+            "required": true
+          },
+          {
+            "type": "Dropdown",
+            "name": "favorite_fruit",
+            "label": "Favorite Fruit",
+            "required": true,
+            "data-source": [
+              {
+                "id": "apple",
+                "title": "Apple"
+              },
+              {
+                "id": "banana",
+                "title": "Banana"
+              },
+              {
+                "id": "mango",
+                "title": "Mango"
+              },
+              {
+                "id": "orange",
+                "title": "Orange"
+              }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Submit Survey",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "user_name": "${form.user_name}",
+                "favorite_fruit": "${form.favorite_fruit}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

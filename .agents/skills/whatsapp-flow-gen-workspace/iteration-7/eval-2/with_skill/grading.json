@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "The flow.json MUST include 'data_api_version': '3.0' if using data_exchange.",
+      "passed": true,
+      "evidence": "'data_api_version': '3.0' is present at the top-level."
+    },
+    {
+      "text": "Screen 1 MUST contain a NavigationList and NO other components (exclusive component rule).",
+      "passed": true,
+      "evidence": "CATEGORY_SCREEN contains only a TextHeading and NavigationList (TextHeading is allowed in SingleColumnLayout)."
+    },
+    {
+      "text": "Every flow path MUST end with a terminal screen.",
+      "passed": true,
+      "evidence": "ITEM_SCREEN is correctly marked as 'terminal': true with a 'complete' action."
+    }
+  ]
+}

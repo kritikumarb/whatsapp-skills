@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "Every flow path MUST end with a screen marked 'terminal': true.",
+      "passed": true,
+      "evidence": "SURVEY_SCREEN is marked as 'terminal': true."
+    },
+    {
+      "text": "A terminal screen MUST include a Footer with a 'complete' action.",
+      "passed": true,
+      "evidence": "SURVEY_SCREEN includes a Footer with a 'complete' action."
+    },
+    {
+      "text": "The flow.json MUST include 'data_exchange_trigger' if data_exchange is used.",
+      "passed": true,
+      "evidence": "N/A - This flow used 'complete' directly from the first screen."
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "version": "7.1",
+  "routing_model": {
+    "SELECT_DESTINATION": ["SELECT_SEAT"],
+    "SELECT_SEAT": []
+  },
+  "screens": [
+    {
+      "id": "SELECT_DESTINATION",
+      "title": "Select Destination",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Where are you flying?"
+          },
+          {
+            "type": "Dropdown",
+            "name": "destination",
+            "label": "Destination",
+            "data-source": [
+              { "id": "NYC", "title": "New York (NYC)" },
+              { "id": "LON", "title": "London (LON)" },
+              { "id": "PAR", "title": "Paris (PAR)" }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Select Seat",
+            "on-click-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "fetch_seats",
+                "destination": "${form.destination}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SELECT_SEAT",
+      "title": "Select Seat",
+      "terminal": true,
+      "data": {
+        "available_seats": {
+          "__example__": [
+            { "id": "1A", "title": "1A (Window) - $50" },
+            { "id": "1B", "title": "1B (Aisle) - $20" }
+          ]
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Choose your seat"
+          },
+          {
+            "type": "TextBody",
+            "text": "Booking for: ${screen.SELECT_DESTINATION.form.destination}"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "selected_seat",
+            "data-source": "${data.available_seats}"
+          },
+          {
+            "type": "Footer",
+            "label": "Confirm Booking",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "destination": "${screen.SELECT_DESTINATION.form.destination}",
+                "seat": "${form.selected_seat}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

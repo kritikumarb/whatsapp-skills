@@ -1,0 +1,114 @@
+﻿{
+  "version": "7.1",
+  "screens": [
+    {
+      "id": "CATEGORY_SCREEN",
+      "title": "Our Menu",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Select a Category"
+          },
+          {
+            "type": "NavigationList",
+            "items": [
+              {
+                "id": "starters",
+                "label": "Starters",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "FETCH_CATEGORY_ITEMS",
+                    "category_id": "starters",
+                    "category_name": "Starters"
+                  }
+                }
+              },
+              {
+                "id": "main",
+                "label": "Main Course",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "FETCH_CATEGORY_ITEMS",
+                    "category_id": "main",
+                    "category_name": "Main Course"
+                  }
+                }
+              },
+              {
+                "id": "dessert",
+                "label": "Desserts",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "FETCH_CATEGORY_ITEMS",
+                    "category_id": "dessert",
+                    "category_name": "Desserts"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ITEM_SCREEN",
+      "title": "${data.category_name}",
+      "terminal": true,
+      "data": {
+        "category_name": {
+          "type": "string",
+          "__example__": "Starters"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" }
+            }
+          },
+          "__example__": [
+            { "id": "1", "title": "Item 1" }
+          ]
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Choose your item"
+          },
+          {
+            "type": "Dropdown",
+            "name": "selected_item",
+            "label": "Select Item",
+            "data-source": "${data.items}"
+          },
+          {
+            "type": "Footer",
+            "label": "Confirm Order",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "category": "${data.category_name}",
+                "item": "${form.selected_item}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "routing_model": {
+    "CATEGORY_SCREEN": ["ITEM_SCREEN"],
+    "ITEM_SCREEN": []
+  },
+  "data_api_version": "3.0"
+}

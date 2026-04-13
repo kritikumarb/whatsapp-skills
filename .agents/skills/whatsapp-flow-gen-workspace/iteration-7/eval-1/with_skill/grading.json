@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "The flow.json MUST include 'data_api_version': '3.0' if using data_exchange.",
+      "passed": false,
+      "evidence": "'data_api_version' is missing from the top-level of flow.json."
+    },
+    {
+      "text": "The flow.json MUST include a 'routing_model' property because it uses data_exchange.",
+      "passed": true,
+      "evidence": "'routing_model' is correctly defined."
+    },
+    {
+      "text": "Every flow path MUST end with a terminal screen.",
+      "passed": true,
+      "evidence": "SELECT_SEAT is correctly marked as 'terminal': true with a 'complete' action."
+    }
+  ]
+}
