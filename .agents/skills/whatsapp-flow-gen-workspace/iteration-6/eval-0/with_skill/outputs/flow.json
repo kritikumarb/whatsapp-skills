@@ -1,0 +1,103 @@
+{
+  "version": "7.1",
+  "screens": [
+    {
+      "id": "SURVEY_SCREEN",
+      "title": "Fruit Survey",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Quick Survey"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please tell us a bit about yourself."
+          },
+          {
+            "type": "TextInput",
+            "name": "user_name",
+            "label": "Name",
+            "input-type": "text",
+            "required": true
+          },
+          {
+            "type": "Dropdown",
+            "name": "favorite_fruit",
+            "label": "Favorite Fruit",
+            "required": true,
+            "data-source": [
+              {
+                "id": "apple",
+                "title": "Apple"
+              },
+              {
+                "id": "banana",
+                "title": "Banana"
+              },
+              {
+                "id": "mango",
+                "title": "Mango"
+              },
+              {
+                "id": "orange",
+                "title": "Orange"
+              }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Submit",
+            "on-click-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "submit_survey",
+                "name": "${form.user_name}",
+                "fruit": "${form.favorite_fruit}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUCCESS_SCREEN_RESERVED",
+      "title": "Success",
+      "terminal": true,
+      "data": {
+        "message": {
+          "type": "string",
+          "__example__": "Thank you for participating!"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Thank You!"
+          },
+          {
+            "type": "TextBody",
+            "text": "${data.message}"
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "status": "completed"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "routing_model": {
+    "SURVEY_SCREEN": ["SUCCESS_SCREEN_RESERVED"],
+    "SUCCESS_SCREEN_RESERVED": []
+  }
+}

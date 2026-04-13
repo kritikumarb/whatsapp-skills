@@ -12,6 +12,12 @@
       "prompt": "Create a two-screen flow for a flight booking. Screen 1: select destination, Screen 2: select seat. Screen 1 should use data-exchange to fetch available seats for the selected destination. Provide flow.json and Python backend.",
       "expected_output": "A flow.json with two screens and data-exchange routing, plus a backend handling 'data-exchange' and 'complete' actions.",
       "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Create a multi-screen WhatsApp Flow for a restaurant menu. Screen 1 should use a NavigationList (v6.2+) to show categories (Starters, Main, Dessert). Clicking a category should navigate to Screen 2. Screen 2 should show the items in that category using a Dropdown. Screen 2 should also include a Footer. Ensure the Flow uses version 7.1. Provide flow.json and a Python backend.",
+      "expected_output": "A flow.json with version 7.1, a NavigationList on Screen 1, and a valid backend. Note: Screen 1 with NavigationList must not have other components.",
+      "files": []
     }
   ]
 }

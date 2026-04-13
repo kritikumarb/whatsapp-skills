@@ -1,0 +1,106 @@
+{
+  "version": "7.1",
+  "screens": [
+    {
+      "id": "SCREEN_ONE",
+      "title": "Restaurant Menu",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "NavigationList",
+            "items": [
+              {
+                "id": "starters",
+                "title": "Starters",
+                "description": "Appetizers and snacks",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "FETCH_ITEMS",
+                    "category_id": "starters",
+                    "category_name": "Starters"
+                  }
+                }
+              },
+              {
+                "id": "main",
+                "title": "Main Course",
+                "description": "Hearty and delicious meals",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "FETCH_ITEMS",
+                    "category_id": "main",
+                    "category_name": "Main Course"
+                  }
+                }
+              },
+              {
+                "id": "dessert",
+                "title": "Desserts",
+                "description": "Sweet treats to end your meal",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "FETCH_ITEMS",
+                    "category_id": "dessert",
+                    "category_name": "Desserts"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "SCREEN_TWO",
+      "title": "${data.category_name}",
+      "data": {
+        "category_name": {
+          "type": "string",
+          "__default": "Menu"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          },
+          "__default": []
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Dropdown",
+            "label": "Select an item",
+            "name": "selected_item",
+            "data-source": "${data.items}",
+            "required": true
+          },
+          {
+            "type": "Footer",
+            "label": "Confirm Order",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "category": "${data.category_name}",
+                "item_id": "${form.selected_item}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

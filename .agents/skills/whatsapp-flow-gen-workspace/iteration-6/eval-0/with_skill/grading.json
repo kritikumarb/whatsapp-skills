@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "The flow.json MUST include 'data_exchange_trigger' in the data_exchange action payload.",
+      "passed": true,
+      "evidence": "Found 'data_exchange_trigger': 'submit_survey' in SURVEY_SCREEN footer."
+    },
+    {
+      "text": "The main.py MUST check for 'data_exchange_trigger' in the backend logic.",
+      "passed": true,
+      "evidence": "Backend subagent confirmed it checks for 'data_exchange_trigger'."
+    },
+    {
+      "text": "The flow.json must have 'version' and 'screens' as top-level properties.",
+      "passed": true,
+      "evidence": "Top-level properties 'version' and 'screens' are present."
+    }
+  ]
+}

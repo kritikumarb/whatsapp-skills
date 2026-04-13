@@ -1,0 +1,24 @@
+{
+  "expectations": [
+    {
+      "text": "The flow.json MUST use version '7.1'.",
+      "passed": true,
+      "evidence": "Version is set to '7.1'."
+    },
+    {
+      "text": "Screen 1 MUST contain a NavigationList and NO other components (exclusive component rule).",
+      "passed": true,
+      "evidence": "SCREEN_ONE contains only the NavigationList component."
+    },
+    {
+      "text": "Screen 2 MUST include a Footer component as it is a terminal screen.",
+      "passed": true,
+      "evidence": "SCREEN_TWO includes a Footer with a complete action."
+    },
+    {
+      "text": "The flow.json MUST include 'data_exchange_trigger' if data_exchange is used.",
+      "passed": true,
+      "evidence": "Found 'data_exchange_trigger': 'FETCH_ITEMS' in NavigationList items."
+    }
+  ]
+}

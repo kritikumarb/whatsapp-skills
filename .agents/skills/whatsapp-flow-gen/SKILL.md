@@ -5,6 +5,19 @@ description: Generate WhatsApp Flow JSON and its corresponding backend (defaulti
 
 # WhatsApp Flow Generator (STRICT DATA EXCHANGE)
 
+This skill provides expert guidance for building valid WhatsApp Flow JSON and its corresponding backend logic.
+
+### 🚨 MANDATORY: Consult Authoritative Rules
+Before generating or modifying any Flow JSON, you **MUST** consult the authoritative rules located in:
+`references/rules.md`
+
+This file contains critical constraints for:
+- **Routing Model**: Max 10 edges, entry/terminal rules.
+- **Components**: Per-screen limits (max 50), version-specific availability, character limits.
+- **Actions**: `navigate` vs `complete` vs `data_exchange` vs `update_data`.
+- **Media**: PhotoPicker/DocumentPicker restrictions.
+- **Data Binding**: `${data.*}`, `${form.*}`, and `${screen.*}` global references.
+
 ### 🚨 STOP! YOU MUST INCLUDE `data_exchange_trigger` 🚨
 
 Every `data_exchange` action you generate **MUST** include a key named `data_exchange_trigger` in its payload. If you omit this, the task is a FAILURE.
@@ -38,3 +51,4 @@ elif action == "data_exchange":
 - The `/whatsapp-flow` endpoint processes `ping` and `data_exchange`.
 - The `/webhook` endpoint processes `interactive` messages of type `nfm_reply`.
 - Always generate a `handle_submission(flow_data)` function.
+- **Strictly adhere to version limits** defined in `references/rules.md` (e.g., v7.1 for latest features).

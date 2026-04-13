@@ -1,0 +1,107 @@
+{
+  "version": "3.1",
+  "screens": [
+    {
+      "id": "SELECT_DESTINATION",
+      "title": "Flight Booking",
+      "data": {},
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Where are you flying to?"
+          },
+          {
+            "type": "Form",
+            "name": "destination_form",
+            "children": [
+              {
+                "type": "RadioButtonsGroup",
+                "name": "destination",
+                "label": "Select Destination",
+                "required": true,
+                "options": [
+                  {
+                    "id": "london",
+                    "title": "London (LHR)"
+                  },
+                  {
+                    "id": "paris",
+                    "title": "Paris (CDG)"
+                  },
+                  {
+                    "id": "new_york",
+                    "title": "New York (JFK)"
+                  },
+                  {
+                    "id": "tokyo",
+                    "title": "Tokyo (HND)"
+                  }
+                ]
+              },
+              {
+                "type": "Footer",
+                "label": "View Seats",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "GET_AVAILABLE_SEATS",
+                    "destination": "${form.destination}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "SELECT_SEAT",
+      "title": "Select Your Seat",
+      "data": {
+        "destination_name": {
+          "type": "string",
+          "__default": "your destination"
+        },
+        "available_seats": {
+          "type": "array",
+          "__default": []
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Select a seat for ${data.destination_name}"
+          },
+          {
+            "type": "Form",
+            "name": "seat_form",
+            "children": [
+              {
+                "type": "RadioButtonsGroup",
+                "name": "selected_seat",
+                "label": "Available Seats",
+                "required": true,
+                "options": "${data.available_seats}"
+              },
+              {
+                "type": "Footer",
+                "label": "Confirm Booking",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "destination": "${data.destination_name}",
+                    "seat": "${form.selected_seat}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

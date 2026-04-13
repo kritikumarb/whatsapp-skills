@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "The flow.json MUST include a 'routing_model' property because it uses data_exchange.",
+      "passed": false,
+      "evidence": "The 'routing_model' property is missing from the top-level of flow.json."
+    },
+    {
+      "text": "The flow.json MUST include 'data_exchange_trigger' in the data_exchange action payload.",
+      "passed": true,
+      "evidence": "Found 'data_exchange_trigger': 'GET_AVAILABLE_SEATS' in the payload."
+    },
+    {
+      "text": "The routing_model must contain forward-only edges.",
+      "passed": false,
+      "evidence": "Cannot verify as routing_model is missing."
+    }
+  ]
+}

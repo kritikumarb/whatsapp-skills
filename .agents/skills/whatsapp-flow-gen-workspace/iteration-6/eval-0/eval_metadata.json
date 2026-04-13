@@ -1,0 +1,19 @@
+{
+  "eval_id": 0,
+  "eval_name": "survey-one-screen",
+  "prompt": "Create a simple one-screen flow for a survey that asks for the user's name and favorite fruit, then gives a success message. Provide the flow.json and a Python FastAPI backend.",
+  "assertions": [
+    {
+      "name": "data_exchange_trigger_in_json",
+      "instruction": "The flow.json MUST include 'data_exchange_trigger' in the data_exchange action payload."
+    },
+    {
+      "name": "data_exchange_trigger_in_backend",
+      "instruction": "The main.py MUST check for 'data_exchange_trigger' in the backend logic."
+    },
+    {
+      "name": "valid_json_structure",
+      "instruction": "The flow.json must have 'version' and 'screens' as top-level properties."
+    }
+  ]
+}

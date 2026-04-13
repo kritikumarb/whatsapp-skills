@@ -1,0 +1,23 @@
+{
+  "eval_id": 2,
+  "eval_name": "restaurant-menu-navigation-list",
+  "prompt": "Create a multi-screen WhatsApp Flow for a restaurant menu. Screen 1 should use a NavigationList (v6.2+) to show categories (Starters, Main, Dessert). Clicking a category should navigate to Screen 2. Screen 2 should show the items in that category using a Dropdown. Screen 2 should also include a Footer. Ensure the Flow uses version 7.1. Provide flow.json and a Python backend.",
+  "assertions": [
+    {
+      "name": "version_is_7.1",
+      "instruction": "The flow.json MUST use version '7.1'."
+    },
+    {
+      "name": "navigation_list_exclusive",
+      "instruction": "Screen 1 MUST contain a NavigationList and NO other components (exclusive component rule)."
+    },
+    {
+      "name": "footer_requirement",
+      "instruction": "Screen 2 MUST include a Footer component as it is a terminal screen (or has a complete action)."
+    },
+    {
+      "name": "data_exchange_trigger_present",
+      "instruction": "The flow.json MUST include 'data_exchange_trigger' if data_exchange is used."
+    }
+  ]
+}

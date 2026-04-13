@@ -1,0 +1,19 @@
+{
+  "eval_id": 1,
+  "eval_name": "flight-booking-two-screens",
+  "prompt": "Create a two-screen flow for a flight booking. Screen 1: select destination, Screen 2: select seat. Screen 1 should use data-exchange to fetch available seats for the selected destination. Provide flow.json and Python backend.",
+  "assertions": [
+    {
+      "name": "routing_model_present",
+      "instruction": "The flow.json MUST include a 'routing_model' property because it uses data_exchange."
+    },
+    {
+      "name": "data_exchange_trigger_present",
+      "instruction": "The flow.json MUST include 'data_exchange_trigger' in the data_exchange action payload."
+    },
+    {
+      "name": "forward_only_edges",
+      "instruction": "The routing_model must contain forward-only edges (e.g., Screen 1 to Screen 2)."
+    }
+  ]
+}
