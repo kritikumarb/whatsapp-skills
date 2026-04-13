@@ -30,6 +30,12 @@
       "prompt": "Create an onboarding WhatsApp Flow for a new app. Screen 1: Welcome message and a mandatory 'Terms and Conditions' OptIn component (with a link to example.com/terms). Only if accepted, navigate to Screen 2. Screen 2: Choose a start date using a DatePicker. Selecting a date MUST trigger a data_exchange to 'check_availability'. Screen 3: Result screen. Show a 'Warning' text ONLY IF 'data.is_available' is false using backticked logic. Screen 4: Terminal success screen. Ensure flow.json has data_api_version: 3.0. Provide flow.json and Python backend.",
       "expected_output": "A flow.json using OptIn for terms, on-select-action for DatePicker, backticked boolean expressions, data_api_version: 3.0, and a terminal screen.",
       "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Create a WhatsApp Flow for a 'User Profile' setup. Screen 1: Collect Name (init-value from 'data.user_name'). Screen 2: 'Terms' OptIn component. Screen 3: 'Status' screen. Show a 'Please complete your profile' text ONLY if 'data.profile_complete' is false using explicit comparison (== false) in backticks. Ensure NO manual declaration of 'error' keywords in flow.json. Provide flow.json and Python backend with mandatory error handling catching str(e).",
+      "expected_output": "Correct TextInput properties, explicit boolean comparisons, no reserved keywords in data blocks, and robust backend error handling.",
+      "files": []
     }
   ]
 }
