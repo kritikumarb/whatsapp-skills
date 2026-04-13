@@ -7,16 +7,33 @@ description: Generate WhatsApp Flow JSON and its corresponding backend (defaulti
 
 This skill provides expert guidance for building valid WhatsApp Flow JSON and its corresponding backend logic.
 
-### 🚨 MANDATORY: Consult Authoritative Rules
-Before generating or modifying any Flow JSON, you **MUST** consult the authoritative rules located in:
-`references/rules.md`
+### 🚨 MANDATORY: Every Flow MUST End with a Terminal Screen
+You **MUST** ensure that every possible user path in the `flow.json` leads to a screen marked as `"terminal": true`. A terminal screen MUST include a `Footer` component with a `complete` action.
 
-This file contains critical constraints for:
-- **Routing Model**: Max 10 edges, entry/terminal rules.
-- **Components**: Per-screen limits (max 50), version-specific availability, character limits.
-- **Actions**: `navigate` vs `complete` vs `data_exchange` vs `update_data`.
-- **Media**: PhotoPicker/DocumentPicker restrictions.
-- **Data Binding**: `${data.*}`, `${form.*}`, and `${screen.*}` global references.
+### 🚨 MANDATORY: Data Endpoint Configuration
+If the flow uses a `data_exchange` action, you **MUST** include the following at the top-level of `flow.json`:
+- `"data_api_version": "3.0"`
+- `"routing_model": { ... }` (defining the valid screen transitions)
+
+#### REQUIRED TERMINAL SCREEN PATTERN
+```json
+{
+  "id": "SUCCESS_SCREEN",
+  "terminal": true,
+  "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+      { "type": "TextHeading", "text": "Confirmation" },
+      { "type": "TextBody", "text": "Your request has been submitted successfully." },
+      { 
+        "type": "Footer", 
+        "label": "Finish", 
+        "on-click-action": { "name": "complete", "payload": {} } 
+      }
+    ]
+  }
+}
+```
 
 ### 🚨 STOP! YOU MUST INCLUDE `data_exchange_trigger` 🚨
 
