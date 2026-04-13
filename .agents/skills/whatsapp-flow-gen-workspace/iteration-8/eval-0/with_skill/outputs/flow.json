@@ -1,0 +1,90 @@
+{
+  "version": "7.1",
+  "screens": [
+    {
+      "id": "SURVEY_SCREEN",
+      "title": "Quick Survey",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Tell us about yourself"
+          },
+          {
+            "type": "TextInput",
+            "name": "name",
+            "label": "Your Name",
+            "required": true
+          },
+          {
+            "type": "Dropdown",
+            "name": "favorite_fruit",
+            "label": "Favorite Fruit",
+            "required": true,
+            "data-source": [
+              { "id": "Apple", "title": "Apple" },
+              { "id": "Banana", "title": "Banana" },
+              { "id": "Mango", "title": "Mango" }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Submit",
+            "on-click-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "submit_survey",
+                "name": "${form.name}",
+                "favorite_fruit": "${form.favorite_fruit}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUMMARY_SCREEN",
+      "title": "Done",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Success!"
+          },
+          {
+            "type": "TextBody",
+            "text": "`'Thank you, ' ${data.name} '! We recorded that your favorite fruit is ' ${data.favorite_fruit} '.'`"
+          },
+          {
+            "type": "Footer",
+            "label": "Close",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "name": "${data.name}",
+                "favorite_fruit": "${data.favorite_fruit}"
+              }
+            }
+          }
+        ]
+      },
+      "data": {
+        "name": {
+          "type": "string",
+          "__example__": "John Doe"
+        },
+        "favorite_fruit": {
+          "type": "string",
+          "__example__": "Apple"
+        }
+      }
+    }
+  ],
+  "routing_model": {
+    "SURVEY_SCREEN": ["SUMMARY_SCREEN"],
+    "SUMMARY_SCREEN": []
+  }
+}

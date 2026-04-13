@@ -1,0 +1,152 @@
+{
+  "version": "7.1",
+  "screens": [
+    {
+      "id": "SERVICE_SELECTION",
+      "title": "Book a Service",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextBody",
+            "text": "Please choose the service you wish to book."
+          },
+          {
+            "type": "Dropdown",
+            "name": "service",
+            "label": "Service",
+            "data-source": [
+              { "id": "Haircut", "title": "Haircut" },
+              { "id": "Manicure", "title": "Manicure" },
+              { "id": "Massage", "title": "Massage" }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Continue",
+            "on-click-action": {
+              "name": "navigate",
+              "payload": {
+                "service": "${form.service}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "DATE_SELECTION",
+      "title": "Choose a Date",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextBody",
+            "text": "Select a date to check for available time slots."
+          },
+          {
+            "type": "DatePicker",
+            "name": "selected_date",
+            "label": "Date"
+          },
+          {
+            "type": "Footer",
+            "label": "Find Times",
+            "on-click-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "fetch_available_times",
+                "service": "${data.service}",
+                "selected_date": "${form.selected_date}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "TIME_SELECTION",
+      "title": "Select Time",
+      "data": {
+        "times": {
+          "type": "array",
+          "__example__": [
+            { "id": "09:00", "title": "09:00 AM" },
+            { "id": "10:00", "title": "10:00 AM" }
+          ]
+        },
+        "show_notice": {
+          "type": "boolean",
+          "__example__": false
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextBody",
+            "text": "Available times for ${data.service} on ${data.selected_date}:"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "selected_time",
+            "data-source": "${data.times}"
+          },
+          {
+            "type": "TextBody",
+            "text": "NOTICE: High demand. Only a few slots left!",
+            "visible": "`${data.show_notice} == false`"
+          },
+          {
+            "type": "Footer",
+            "label": "Confirm Booking",
+            "on-click-action": {
+              "name": "navigate",
+              "payload": {
+                "service": "${data.service}",
+                "date": "${data.selected_date}",
+                "time": "${form.selected_time}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUCCESS",
+      "title": "Confirmed",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Booking Confirmed!"
+          },
+          {
+            "type": "TextBody",
+            "text": "Your ${data.service} is scheduled for ${data.date} at ${data.time}."
+          },
+          {
+            "type": "Footer",
+            "label": "Done",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "service": "${data.service}",
+                "date": "${data.date}",
+                "time": "${data.time}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "routing_model": {
+    "SERVICE_SELECTION": [ "DATE_SELECTION" ],
+    "DATE_SELECTION": [ "TIME_SELECTION" ],
+    "TIME_SELECTION": [ "SUCCESS" ],
+    "SUCCESS": []
+  }
+}

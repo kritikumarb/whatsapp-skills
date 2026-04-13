@@ -1,0 +1,122 @@
+{
+  "version": "7.1",
+  "routing_model": {
+    "SELECT_DESTINATION": [
+      "SELECT_SEAT"
+    ],
+    "SELECT_SEAT": []
+  },
+  "data_api_version": "3.0",
+  "screens": [
+    {
+      "id": "SELECT_DESTINATION",
+      "title": "Flight Booking",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Where are you going?"
+          },
+          {
+            "type": "Dropdown",
+            "name": "destination",
+            "label": "Destination",
+            "required": true,
+            "data-source": [
+              {
+                "id": "NYC",
+                "title": "New York"
+              },
+              {
+                "id": "LON",
+                "title": "London"
+              },
+              {
+                "id": "TYO",
+                "title": "Tokyo"
+              }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "FETCH_SEATS",
+                "destination": "${form.destination}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SELECT_SEAT",
+      "title": "Select Seat",
+      "terminal": true,
+      "data": {
+        "destination_name": {
+          "type": "string",
+          "__example__": "New York"
+        },
+        "seats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          },
+          "__example__": [
+            {
+              "id": "1A",
+              "title": "1A (Window)"
+            },
+            {
+              "id": "1B",
+              "title": "1B (Aisle)"
+            }
+          ]
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Pick a seat"
+          },
+          {
+            "type": "TextBody",
+            "text": "Available seats for ${data.destination_name}:"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "seat",
+            "label": "Seats",
+            "required": true,
+            "data-source": "${data.seats}"
+          },
+          {
+            "type": "Footer",
+            "label": "Confirm Booking",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "destination": "${data.destination_name}",
+                "seat": "${form.seat}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

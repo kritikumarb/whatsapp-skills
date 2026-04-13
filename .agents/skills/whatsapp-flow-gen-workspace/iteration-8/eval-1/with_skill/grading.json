@@ -1,0 +1,14 @@
+{
+  "expectations": [
+    {
+      "text": "The flow.json MUST include a 'routing_model' property because it uses data_exchange.",
+      "passed": true,
+      "evidence": "routing_model is present."
+    },
+    {
+      "text": "Every flow path MUST end with a terminal screen.",
+      "passed": true,
+      "evidence": "SELECT_SEAT is marked terminal."
+    }
+  ]
+}

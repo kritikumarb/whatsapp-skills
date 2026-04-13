@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "The flow.json MUST include 'data_api_version': '3.0' if using data_exchange.",
+      "passed": true,
+      "evidence": "Present at the top-level."
+    },
+    {
+      "text": "Screen 1 MUST contain a NavigationList and NO other components.",
+      "passed": true,
+      "evidence": "CATEGORY_SELECTION only contains NavigationList (ignoring layout/singlecolumn wrapper)."
+    },
+    {
+      "text": "NavigationList MUST use 'list-items' property.",
+      "passed": true,
+      "evidence": "Found 'list-items' in NavigationList."
+    }
+  ]
+}

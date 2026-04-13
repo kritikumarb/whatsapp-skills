@@ -1,0 +1,14 @@
+{
+  "expectations": [
+    {
+      "text": "Every flow path MUST end with a terminal screen.",
+      "passed": true,
+      "evidence": "SUMMARY_SCREEN is marked terminal."
+    },
+    {
+      "text": "The flow.json MUST include 'data_exchange_trigger' if data_exchange is used.",
+      "passed": true,
+      "evidence": "submit_survey trigger is present."
+    }
+  ]
+}

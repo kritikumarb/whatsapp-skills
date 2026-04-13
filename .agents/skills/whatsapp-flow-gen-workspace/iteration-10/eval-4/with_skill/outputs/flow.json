@@ -1,0 +1,152 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "WELCOME": ["DATE_SELECTION"],
+    "DATE_SELECTION": ["RESULT"],
+    "RESULT": ["SUCCESS"],
+    "SUCCESS": []
+  },
+  "screens": [
+    {
+      "id": "WELCOME",
+      "title": "Welcome",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Welcome to our App"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please accept our Terms and Conditions to continue."
+          },
+          {
+            "type": "OptIn",
+            "name": "terms_accepted",
+            "label": "I agree to the Terms and Conditions",
+            "required": true,
+            "on-click-action": {
+              "name": "open_url",
+              "url": "https://example.com/terms"
+            }
+          },
+          {
+            "type": "Footer",
+            "label": "Continue",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "DATE_SELECTION"
+              },
+              "payload": {}
+            },
+            "enabled": "${form.terms_accepted}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "DATE_SELECTION",
+      "title": "Select Date",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextBody",
+            "text": "Please choose a start date."
+          },
+          {
+            "type": "DatePicker",
+            "name": "start_date",
+            "label": "Start Date",
+            "on-select-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "check_availability",
+                "selected_date": "${form.start_date}"
+              }
+            }
+          },
+          {
+            "type": "Footer",
+            "label": "Back"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RESULT",
+      "title": "Availability",
+      "data": {
+        "is_available": {
+          "type": "boolean",
+          "__example__": true
+        },
+        "message": {
+          "type": "string",
+          "__example__": "Date is available"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextBody",
+            "text": "${data.message}"
+          },
+          {
+            "type": "TextBody",
+            "text": "Warning: This date is not available.",
+            "visible": "`${data.is_available} == false`"
+          },
+          {
+            "type": "Footer",
+            "label": "Confirm",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "SUCCESS"
+              },
+              "payload": {
+                "selected_date": "${screen.DATE_SELECTION.form.start_date}"
+              }
+            },
+            "enabled": "${data.is_available}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUCCESS",
+      "title": "Done",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Success!"
+          },
+          {
+            "type": "TextBody",
+            "text": "Your onboarding is complete."
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "date": "${screen.DATE_SELECTION.form.start_date}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

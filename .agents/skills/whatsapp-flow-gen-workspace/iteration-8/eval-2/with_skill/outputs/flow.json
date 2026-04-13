@@ -1,0 +1,131 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "CATEGORY_SELECTION": [
+      "ITEM_SELECTION"
+    ],
+    "ITEM_SELECTION": []
+  },
+  "screens": [
+    {
+      "id": "CATEGORY_SELECTION",
+      "title": "Restaurant Menu",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "NavigationList",
+            "name": "category_list",
+            "list-items": [
+              {
+                "id": "starters",
+                "main-content": {
+                  "title": "Starters",
+                  "description": "Appetizers and snacks"
+                },
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "category_selected",
+                    "category": "starters"
+                  }
+                }
+              },
+              {
+                "id": "main",
+                "main-content": {
+                  "title": "Main Course",
+                  "description": "Hearty main dishes"
+                },
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "category_selected",
+                    "category": "main"
+                  }
+                }
+              },
+              {
+                "id": "dessert",
+                "main-content": {
+                  "title": "Dessert",
+                  "description": "Sweet treats"
+                },
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "data_exchange_trigger": "category_selected",
+                    "category": "dessert"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ITEM_SELECTION",
+      "title": "Select Item",
+      "terminal": true,
+      "data": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          },
+          "__example__": [
+            {
+              "id": "example",
+              "title": "Example Item"
+            }
+          ]
+        },
+        "category_name": {
+          "type": "string",
+          "__example__": "Main Course"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "${data.category_name}"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please choose an item from the category below:"
+          },
+          {
+            "type": "Dropdown",
+            "name": "selected_item",
+            "label": "Menu Item",
+            "data-source": "${data.items}",
+            "required": true
+          },
+          {
+            "type": "Footer",
+            "label": "Place Order",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "category": "${data.category_name}",
+                "item_id": "${form.selected_item}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

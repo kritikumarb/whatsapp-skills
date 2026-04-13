@@ -1,0 +1,29 @@
+{
+  "expectations": [
+    {
+      "text": "The flow.json MUST include 'data_api_version': '3.0'.",
+      "passed": true,
+      "evidence": "Present at top-level."
+    },
+    {
+      "text": "Screen 1 MUST use an OptIn component for terms.",
+      "passed": true,
+      "evidence": "WELCOME screen uses OptIn component correctly."
+    },
+    {
+      "text": "DatePicker MUST use 'on-select-action'.",
+      "passed": true,
+      "evidence": "DATE_SELECTION uses 'on-select-action' on DatePicker."
+    },
+    {
+      "text": "Visible property with logic MUST use backticks.",
+      "passed": true,
+      "evidence": "RESULT screen uses '`${data.is_available} == false`'."
+    },
+    {
+      "text": "The flow MUST end at a terminal screen.",
+      "passed": true,
+      "evidence": "SUCCESS screen is terminal."
+    }
+  ]
+}

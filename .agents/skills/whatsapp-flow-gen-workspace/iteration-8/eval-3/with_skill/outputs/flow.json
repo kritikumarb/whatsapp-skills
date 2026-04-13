@@ -1,0 +1,214 @@
+{
+  "version": "7.1",
+  "screens": [
+    {
+      "id": "SELECT_SERVICE",
+      "title": "Book Service",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Select a Service"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "service",
+            "data-source": [
+              {
+                "id": "haircut",
+                "title": "Haircut"
+              },
+              {
+                "id": "massage",
+                "title": "Massage"
+              },
+              {
+                "id": "manicure",
+                "title": "Manicure"
+              }
+            ],
+            "required": true
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "SELECT_DATE"
+              },
+              "payload": {
+                "service": "${form.service}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SELECT_DATE",
+      "title": "Choose Date",
+      "data": {
+        "service": {
+          "type": "string",
+          "__example__": "haircut"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Select a Date"
+          },
+          {
+            "type": "DatePicker",
+            "name": "date",
+            "label": "Booking Date",
+            "required": true,
+            "on-change-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "fetch_times",
+                "service": "${data.service}",
+                "date": "${form.date}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SELECT_TIME",
+      "title": "Pick Time",
+      "data": {
+        "service": {
+          "type": "string",
+          "__example__": "haircut"
+        },
+        "date": {
+          "type": "string",
+          "__example__": "2026-04-13"
+        },
+        "available_times": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          },
+          "__example__": [
+            {
+              "id": "t1",
+              "title": "09:00 AM"
+            }
+          ]
+        },
+        "show_notice": {
+          "type": "boolean",
+          "__example__": false
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Available Times"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "time",
+            "data-source": "${data.available_times}",
+            "required": true
+          },
+          {
+            "type": "TextBody",
+            "text": "Notice: Please be on time for your appointment.",
+            "visible": "`${data.show_notice} == false`"
+          },
+          {
+            "type": "Footer",
+            "label": "Review",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "SUMMARY"
+              },
+              "payload": {
+                "service": "${data.service}",
+                "date": "${data.date}",
+                "time": "${form.time}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUMMARY",
+      "title": "Summary",
+      "terminal": true,
+      "data": {
+        "service": {
+          "type": "string",
+          "__example__": "haircut"
+        },
+        "date": {
+          "type": "string",
+          "__example__": "2026-04-13"
+        },
+        "time": {
+          "type": "string",
+          "__example__": "09:00 AM"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Booking Review"
+          },
+          {
+            "type": "TextBody",
+            "text": "`'Service: ' ${data.service} '\nDate: ' ${data.date} '\nTime: ' ${data.time}`"
+          },
+          {
+            "type": "Footer",
+            "label": "Confirm Booking",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "service": "${data.service}",
+                "date": "${data.date}",
+                "time": "${data.time}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "routing_model": {
+    "SELECT_SERVICE": [
+      "SELECT_DATE"
+    ],
+    "SELECT_DATE": [
+      "SELECT_TIME"
+    ],
+    "SELECT_TIME": [
+      "SUMMARY"
+    ],
+    "SUMMARY": []
+  }
+}

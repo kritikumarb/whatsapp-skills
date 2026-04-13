@@ -1,0 +1,19 @@
+{
+  "expectations": [
+    {
+      "text": "DatePicker MUST use 'on-select-action'.",
+      "passed": false,
+      "evidence": "Used 'on-change-action' instead of 'on-select-action'."
+    },
+    {
+      "text": "Visible property with logic MUST use backticks.",
+      "passed": true,
+      "evidence": "Used backticks correctly: '`'${data.show_notice} == false`'."
+    },
+    {
+      "text": "The flow.json MUST include 'data_api_version': '3.0' if using data_exchange.",
+      "passed": false,
+      "evidence": "'data_api_version' is missing."
+    }
+  ]
+}
