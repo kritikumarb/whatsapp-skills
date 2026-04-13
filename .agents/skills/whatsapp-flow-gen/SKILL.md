@@ -43,6 +43,9 @@ For any user agreement, "Terms and Conditions", or "Privacy Policy", you **MUST*
 ```
 
 ### 🚨 CRITICAL PITFALLS TO AVOID (STRICT ENFORCEMENT)
+- **TextInput Properties**: 
+  - ❌ **NEVER** use `value`. ✅ **ALWAYS** use `init-value` for pre-populating.
+  - ❌ **NEVER** use `error-text`. ✅ **ALWAYS** use `error-message` for validation errors.
 - **Selection Component Actions**: Components that involve selecting a value (**DatePicker**, **CalendarPicker**, **Dropdown**, **CheckboxGroup**, **RadioButtonsGroup**, **ChipsSelector**) MUST use **`on-select-action`**.
   - ❌ **NEVER** use `on-change-action` (It is INVALID and will cause a crash).
   - ✅ **ALWAYS** use `on-select-action`.
@@ -72,32 +75,41 @@ For any user agreement, "Terms and Conditions", or "Privacy Policy", you **MUST*
 }
 ```
 
-### 🚨 MANDATORY: Backend Error Handling
-Every `/whatsapp-flow` intermediate logic MUST be wrapped in a `try-except` block. On any error, you MUST return a standardized error response containing the **actual error message**:
+### 🚨 MANDATORY: Backend Error Handling & UI Popups
+When you return a response with `"error": true`, WhatsApp will **automatically show a native error popup** to the user. 
 
+- **Reserved Keywords**: `error` and `error_message` are **inbuilt keywords**. 
+- **NO `flow.json` Declaration**: You **MUST NOT** declare `error` or `error_message` in the `data` block of any screen in `flow.json`.
+- **NO Manual Error UI**: Do not create `TextBody` or other components to display these errors; the native popup handles this automatically.
+
+#### 1. Technical Error (Global Catch)
+Every `/whatsapp-flow` intermediate logic MUST be wrapped in a `try-except` block:
 ```python
-import traceback
-from fastapi.responses import PlainTextResponse
-
-# Inside the /whatsapp-flow endpoint logic:
-try:
-    # ... decryption and trigger logic ...
 except Exception as e:
     traceback.print_exc()
-    # Use the screen ID from decrypted_data if available
     response = {
         "screen": decrypted_data.get('screen', ''),
         "data": {
             "error": True,
-            "error_message": str(e) # ACTUAL ERROR REASON
+            "error_message": str(e) # Triggers native UI popup
         }
     }
-    print("sending", response)
-    encrypted_response = encrypt_response(response, aes_key, iv)
-    return PlainTextResponse(content=encrypted_response, media_type='text/plain')
+    # ... encrypt and return ...
 ```
 
-- **Per-Trigger Handling**: Every specific `data_exchange_trigger` block MUST also have internal error handling to ensure the flow never crashes silently.
+#### 2. Business Validation (Trigger Level)
+Use the same format to prevent navigation and show a message if a user's selection is invalid:
+```python
+if trigger == "check_availability":
+    if not is_available:
+        return {
+            "screen": "CURRENT_SCREEN_ID", # Keep user on same screen
+            "data": {
+                "error": True,
+                "error_message": "This date is fully booked. Please choose another."
+            }
+        }
+```
 
 ### 🚨 STOP! YOU MUST INCLUDE `data_exchange_trigger` 🚨
 

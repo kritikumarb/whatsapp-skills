@@ -1,0 +1,215 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "WELCOME": ["SERVICE_SELECTION"],
+    "SERVICE_SELECTION": ["DATE_SELECTION"],
+    "DATE_SELECTION": ["TIME_SELECTION"],
+    "TIME_SELECTION": ["SUMMARY_TERMINAL"],
+    "SUMMARY_TERMINAL": []
+  },
+  "screens": [
+    {
+      "id": "WELCOME",
+      "title": "Welcome",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Welcome to Our Booking System"
+          },
+          {
+            "type": "TextBody",
+            "text": "Book your appointment quickly and easily. Please review and accept our privacy policy to get started."
+          },
+          {
+            "type": "OptIn",
+            "name": "privacy_policy",
+            "label": "I have read and accept the Privacy Policy",
+            "required": true,
+            "on-click-action": {
+              "name": "open_url",
+              "url": "https://example.com/privacy"
+            }
+          },
+          {
+            "type": "Footer",
+            "label": "Continue",
+            "on-click-action": {
+              "name": "navigate",
+              "next": { "type": "screen", "name": "SERVICE_SELECTION" },
+              "payload": {}
+            },
+            "enabled": "${form.privacy_policy}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "SERVICE_SELECTION",
+      "title": "Select Service",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Choose a Service Category"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "service_id",
+            "label": "Services",
+            "data-source": [
+              { "id": "haircut", "title": "Haircut" },
+              { "id": "styling", "title": "Styling" },
+              { "id": "coloring", "title": "Coloring" }
+            ],
+            "required": true
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": {
+              "name": "navigate",
+              "next": { "type": "screen", "name": "DATE_SELECTION" },
+              "payload": {
+                "service_name": "${form.service_id}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "DATE_SELECTION",
+      "title": "Select Date",
+      "data": {
+        "service_name": {
+          "type": "string",
+          "__example__": "haircut"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Choose a Date"
+          },
+          {
+            "type": "TextBody",
+            "text": "`'Selecting date for ' ${data.service_name}`"
+          },
+          {
+            "type": "DatePicker",
+            "name": "booking_date",
+            "label": "Select a Date",
+            "required": true,
+            "on-select-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "fetch_available_times",
+                "selected_date": "${form.booking_date}",
+                "service": "${data.service_name}"
+              }
+            }
+          },
+          {
+            "type": "Footer",
+            "label": "Back"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TIME_SELECTION",
+      "title": "Select Time",
+      "data": {
+        "time_slots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" }
+            }
+          },
+          "__example__": [
+            { "id": "09:00", "title": "09:00 AM" }
+          ]
+        },
+        "selected_date": { "type": "string", "__example__": "2026-04-13" },
+        "service": { "type": "string", "__example__": "haircut" }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Available Slots"
+          },
+          {
+            "type": "TextBody",
+            "text": "`'Times available for ' ${data.service} ' on ' ${data.selected_date}`"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "time_slot",
+            "label": "Time Slots",
+            "data-source": "${data.time_slots}",
+            "required": true
+          },
+          {
+            "type": "Footer",
+            "label": "Confirm Booking",
+            "on-click-action": {
+              "name": "navigate",
+              "next": { "type": "screen", "name": "SUMMARY_TERMINAL" },
+              "payload": {
+                "service": "${data.service}",
+                "date": "${data.selected_date}",
+                "time": "${form.time_slot}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUMMARY_TERMINAL",
+      "title": "Success",
+      "terminal": true,
+      "data": {
+        "service": { "type": "string", "__example__": "haircut" },
+        "date": { "type": "string", "__example__": "2026-04-13" },
+        "time": { "type": "string", "__example__": "09:00 AM" }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Booking Confirmed!"
+          },
+          {
+            "type": "TextBody",
+            "text": "`'Your ' ${data.service} ' is scheduled for ' ${data.date} ' at ' ${data.time} '.'`"
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "service": "${data.service}",
+                "date": "${data.date}",
+                "time": "${data.time}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
