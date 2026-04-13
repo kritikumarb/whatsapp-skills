@@ -1,0 +1,30 @@
+{
+  "expectations": [
+    {
+      "text": "The generated flow.json uses 'data_exchange' actions.",
+      "passed": true,
+      "evidence": "flow.json contains 'on-click-action': {'name': 'data_exchange', ...}"
+    },
+    {
+      "text": "The 'data_exchange' payload includes the 'data_exchange_trigger' attribute.",
+      "passed": true,
+      "evidence": "flow.json payload contains 'data_exchange_trigger': 'fetch_seats'."
+    },
+    {
+      "text": "The backend logic uses 'data_exchange_trigger' to identify the action.",
+      "passed": true,
+      "evidence": "main.py reads trigger = data.get('data_exchange_trigger') and checks if trigger == 'fetch_seats'."
+    },
+    {
+      "text": "The backend handles 'ping', 'data_exchange', and 'complete' actions.",
+      "passed": true,
+      "evidence": "main.py has logic for 'ping', 'data_exchange', and processes 'complete' via nfm_reply."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  }
+}

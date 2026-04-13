@@ -1,0 +1,93 @@
+{
+  "version": "3.1",
+  "screens": [
+    {
+      "id": "SELECT_DESTINATION",
+      "title": "Book Your Flight",
+      "data": {
+        "destinations": [
+          {
+            "id": "NYC",
+            "title": "New York"
+          },
+          {
+            "id": "LON",
+            "title": "London"
+          },
+          {
+            "id": "PAR",
+            "title": "Paris"
+          },
+          {
+            "id": "TYO",
+            "title": "Tokyo"
+          }
+        ]
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "destination_form",
+            "children": [
+              {
+                "type": "Dropdown",
+                "label": "Select Destination",
+                "name": "destination",
+                "data_source": "destinations",
+                "required": true
+              },
+              {
+                "type": "Footer",
+                "label": "Next",
+                "on_click_action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "destination": "${form.destination}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "SELECT_SEAT",
+      "title": "Select Your Seat",
+      "data": {
+        "seats": []
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "seat_form",
+            "children": [
+              {
+                "type": "Dropdown",
+                "label": "Select Seat",
+                "name": "seat",
+                "data_source": "seats",
+                "required": true
+              },
+              {
+                "type": "Footer",
+                "label": "Book Now",
+                "on_click_action": {
+                  "name": "complete",
+                  "payload": {
+                    "destination": "${data.destination}",
+                    "seat": "${form.seat}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

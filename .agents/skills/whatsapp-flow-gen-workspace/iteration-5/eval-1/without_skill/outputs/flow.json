@@ -1,0 +1,94 @@
+{
+  "version": "5.0",
+  "screens": [
+    {
+      "id": "screen_destination",
+      "title": "Select Destination",
+      "terminal": false,
+      "data": {},
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "destination_form",
+            "children": [
+              {
+                "type": "Dropdown",
+                "label": "Choose Destination",
+                "name": "destination",
+                "required": true,
+                "data-source": [
+                  { "id": "NYC", "title": "New York City" },
+                  { "id": "LON", "title": "London" },
+                  { "id": "PAR", "title": "Paris" }
+                ]
+              },
+              {
+                "type": "Footer",
+                "label": "View Seats",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "destination": "${form.destination}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen_seat",
+      "title": "Select Seat",
+      "terminal": true,
+      "data": {
+        "available_seats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" }
+            }
+          },
+          "__dynamic_default": []
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "seat_form",
+            "children": [
+              {
+                "type": "TextBody",
+                "text": "Available seats for your destination:"
+              },
+              {
+                "type": "Dropdown",
+                "label": "Choose Seat",
+                "name": "seat",
+                "required": true,
+                "data-source": "${data.available_seats}"
+              },
+              {
+                "type": "Footer",
+                "label": "Confirm Booking",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "destination": "${screen_destination.destination_form.destination}",
+                    "seat": "${form.seat}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

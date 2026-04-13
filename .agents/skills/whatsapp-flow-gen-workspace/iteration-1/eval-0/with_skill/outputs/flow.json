@@ -1,0 +1,95 @@
+{
+  "version": "3.1",
+  "screens": [
+    {
+      "id": "SURVEY",
+      "title": "Favorite Fruit Survey",
+      "terminal": false,
+      "data": {
+        "name": {
+          "type": "string",
+          "default": ""
+        },
+        "fruit": {
+          "type": "string",
+          "default": "apple"
+        }
+      },
+      "layout": {
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Tell us about yourself"
+          },
+          {
+            "type": "TextInput",
+            "name": "name",
+            "label": "Your Name",
+            "input-type": "text",
+            "required": true
+          },
+          {
+            "type": "Dropdown",
+            "name": "fruit",
+            "label": "Favorite Fruit",
+            "required": true,
+            "data-source": [
+              {
+                "id": "apple",
+                "title": "Apple"
+              },
+              {
+                "id": "banana",
+                "title": "Banana"
+              },
+              {
+                "id": "orange",
+                "title": "Orange"
+              },
+              {
+                "id": "mango",
+                "title": "Mango"
+              }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Submit",
+            "on-click-action": {
+              "name": "data_exchange",
+              "payload": {
+                "name": "${form.name}",
+                "fruit": "${form.fruit}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUCCESS",
+      "title": "Success",
+      "terminal": true,
+      "layout": {
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Thank You!"
+          },
+          {
+            "type": "TextBody",
+            "text": "Your survey has been submitted successfully. We have recorded your favorite fruit."
+          },
+          {
+            "type": "Footer",
+            "label": "Done",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {}
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

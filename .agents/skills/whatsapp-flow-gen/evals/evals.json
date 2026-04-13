@@ -1,0 +1,17 @@
+{
+  "skill_name": "whatsapp-flow-gen",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Create a simple one-screen flow for a survey that asks for the user's name and favorite fruit, then gives a success message. Provide the flow.json and a Python FastAPI backend.",
+      "expected_output": "A valid flow.json and a FastAPI backend that handles the 'complete' action.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "Create a two-screen flow for a flight booking. Screen 1: select destination, Screen 2: select seat. Screen 1 should use data-exchange to fetch available seats for the selected destination. Provide flow.json and Python backend.",
+      "expected_output": "A flow.json with two screens and data-exchange routing, plus a backend handling 'data-exchange' and 'complete' actions.",
+      "files": []
+    }
+  ]
+}

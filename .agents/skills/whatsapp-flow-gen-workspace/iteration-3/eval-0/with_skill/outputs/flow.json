@@ -1,0 +1,44 @@
+{
+  "version": "3.1",
+  "screens": [
+    {
+      "id": "SURVEY_SCREEN",
+      "title": "Fruit Survey",
+      "data": {},
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "survey_form",
+            "children": [
+              {
+                "type": "TextInput",
+                "label": "What is your name?",
+                "name": "user_name",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "What is your favorite fruit?",
+                "name": "favorite_fruit",
+                "required": true
+              },
+              {
+                "type": "Footer",
+                "label": "Submit",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "user_name": "${form.user_name}",
+                    "favorite_fruit": "${form.favorite_fruit}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

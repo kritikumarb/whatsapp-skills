@@ -1,0 +1,82 @@
+﻿[
+    {
+        "query":  "I need to build a WhatsApp Flow for my pizza shop. It should have a screen to select the size, and then another screen to pick toppings. I also need the Python code to handle the webhook.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "Can you help me create a flow.json for a customer feedback survey on WhatsApp? I want to capture their rating and a text comment, and then have a backend that receives the data.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "Generate a two-screen WhatsApp Flow for booking a dentist appointment. First screen: select service, second screen: choose a time slot using data_exchange. Provide the FastAPI backend too.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "I want to create an interactive form-based experience for WhatsApp users to register for our webinar. It needs to be a Flow with a final submission to our server.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "How do I build a WhatsApp Flow that fetches a user\u0027s loyalty points from my database and displays them on the first screen? I need the UI schema and the Python logic.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "Can you generate a flow.json and a Python backend for a product catalog on WhatsApp? Users should be able to click a product and see more details via data exchange.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "I\u0027m building a lead gen form for my real estate business on WhatsApp. I need a Flow where users enter their budget and location, and then I get the results via a webhook.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "Create a WhatsApp Flow for a simple quiz. Each question should be on a new screen, and the final score should be sent to our backend. Provide the full code.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "I need to implement a \u0027Track My Order\u0027 feature on WhatsApp using a Flow. The user enters their order ID, and the backend returns the current status. Give me the JSON and the Python script.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "Generate a WhatsApp Flow for a subscription signup. It should have a \u0027data_exchange\u0027 action to validate the user\u0027s email address before they complete the form.",
+        "should_trigger":  true
+    },
+    {
+        "query":  "How do I send a template message with a button to my customers on WhatsApp using the API?",
+        "should_trigger":  false
+    },
+    {
+        "query":  "Can you write a Python script to send a PDF document to a WhatsApp number?",
+        "should_trigger":  false
+    },
+    {
+        "query":  "I need to set up a WhatsApp chatbot using Dialogflow. Can you help with the integration?",
+        "should_trigger":  false
+    },
+    {
+        "query":  "How do I format a JSON object for a WhatsApp List Message?",
+        "should_trigger":  false
+    },
+    {
+        "query":  "Can you explain the difference between a WhatsApp Business Account and a personal account?",
+        "should_trigger":  false
+    },
+    {
+        "query":  "Write a Python script to scrape product data from a website and save it as a JSON file.",
+        "should_trigger":  false
+    },
+    {
+        "query":  "How do I use the WhatsApp Cloud API to receive incoming text messages?",
+        "should_trigger":  false
+    },
+    {
+        "query":  "Can you help me design a UI for a mobile app that looks like WhatsApp?",
+        "should_trigger":  false
+    },
+    {
+        "query":  "What are the best practices for sending marketing messages on WhatsApp without getting banned?",
+        "should_trigger":  false
+    },
+    {
+        "query":  "I need a Python script that connects to my SQL database and returns a list of users.",
+        "should_trigger":  false
+    }
+]

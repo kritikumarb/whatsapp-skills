@@ -1,0 +1,11 @@
+.agents/skills/skill-creator/
+.claude/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+node_modules/
+dist/
+build/
+.gemini/
+.geminiignore

@@ -1,0 +1,73 @@
+{
+  "version": "3.1",
+  "screens": [
+    {
+      "id": "DESTINATION_SCREEN",
+      "title": "Flight Booking",
+      "terminal": false,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Select Destination"
+          },
+          {
+            "type": "Dropdown",
+            "label": "Where to?",
+            "name": "destination",
+            "required": true,
+            "options": [
+              { "id": "LHR", "title": "London (LHR)" },
+              { "id": "CDG", "title": "Paris (CDG)" },
+              { "id": "JFK", "title": "New York (JFK)" }
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": {
+              "name": "data_exchange",
+              "payload": {
+                "data_exchange_trigger": "fetch_seats",
+                "destination_id": "${form.destination}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SEAT_SCREEN",
+      "title": "Select Seat",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextBody",
+            "text": "Available seats for ${data.destination_name}"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "label": "Seats",
+            "name": "seat",
+            "required": true,
+            "options": "${data.seats}"
+          },
+          {
+            "type": "Footer",
+            "label": "Book Flight",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "destination": "${data.destination_id}",
+                "seat": "${form.seat}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

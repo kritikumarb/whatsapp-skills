@@ -1,0 +1,100 @@
+{
+  "version": "3.1",
+  "screens": [
+    {
+      "id": "SURVEY",
+      "title": "Fruit Survey",
+      "terminal": true,
+      "data": {},
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "survey_form",
+            "children": [
+              {
+                "type": "TextInput",
+                "label": "What is your name?",
+                "name": "user_name",
+                "required": true,
+                "input-type": "text"
+              },
+              {
+                "type": "Dropdown",
+                "label": "What is your favorite fruit?",
+                "name": "favorite_fruit",
+                "required": true,
+                "options": [
+                  {
+                    "id": "apple",
+                    "title": "Apple"
+                  },
+                  {
+                    "id": "banana",
+                    "title": "Banana"
+                  },
+                  {
+                    "id": "mango",
+                    "title": "Mango"
+                  },
+                  {
+                    "id": "orange",
+                    "title": "Orange"
+                  },
+                  {
+                    "id": "other",
+                    "title": "Other"
+                  }
+                ]
+              },
+              {
+                "type": "Footer",
+                "label": "Submit",
+                "on-click-action": {
+                  "name": "data_exchange",
+                  "payload": {
+                    "user_name": "${form.user_name}",
+                    "favorite_fruit": "${form.favorite_fruit}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUCCESS",
+      "title": "Success",
+      "terminal": true,
+      "data": {
+        "success_message": {
+          "type": "string",
+          "__default": "Thank you!"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Success!"
+          },
+          {
+            "type": "TextBody",
+            "text": "${data.success_message}"
+          },
+          {
+            "type": "Footer",
+            "label": "Done",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {}
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

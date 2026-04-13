@@ -1,0 +1,88 @@
+{
+  "version": "3.1",
+  "screens": [
+    {
+      "id": "SELECT_DESTINATION",
+      "title": "Book a Flight",
+      "data": {
+        "destinations": [
+          {"id": "NYC", "title": "New York"},
+          {"id": "LON", "title": "London"},
+          {"id": "TKO", "title": "Tokyo"}
+        ]
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Where are you flying to?"
+          },
+          {
+            "type": "Dropdown",
+            "label": "Destination",
+            "name": "destination",
+            "required": true,
+            "data_source": "destinations"
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": {
+              "name": "data_exchange",
+              "payload": {
+                "destination": "${form.destination}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SELECT_SEAT",
+      "title": "Select Your Seat",
+      "terminal": true,
+      "data": {
+        "destination_id": {
+          "type": "string",
+          "__default": ""
+        },
+        "destination_name": {
+          "type": "string",
+          "__default": ""
+        },
+        "seats": {
+          "type": "array",
+          "__default": []
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextBody",
+            "text": "Available seats for ${data.destination_name}"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "label": "Seat selection",
+            "name": "seat",
+            "required": true,
+            "data_source": "seats"
+          },
+          {
+            "type": "Footer",
+            "label": "Book Flight",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "destination": "${data.destination_id}",
+                "seat": "${form.seat}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
