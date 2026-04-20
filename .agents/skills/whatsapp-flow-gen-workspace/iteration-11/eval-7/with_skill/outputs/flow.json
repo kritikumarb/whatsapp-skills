@@ -1,0 +1,113 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "CATEGORIES_SCREEN": [
+      "HELP_SCREEN"
+    ],
+    "HELP_SCREEN": []
+  },
+  "screens": [
+    {
+      "id": "CATEGORIES_SCREEN",
+      "title": "Select Category",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "NavigationList",
+            "name": "category_list",
+            "list-items": [
+              {
+                "id": "electronics",
+                "main-content": {
+                  "title": "Electronics",
+                  "description": "Smartphones, Laptops, and more"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "HELP_SCREEN"
+                  },
+                  "payload": {
+                    "category": "Electronics"
+                  }
+                }
+              },
+              {
+                "id": "home_appliances",
+                "main-content": {
+                  "title": "Home Appliances",
+                  "description": "Kitchen and laundry solutions"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "HELP_SCREEN"
+                  },
+                  "payload": {
+                    "category": "Home Appliances"
+                  }
+                }
+              },
+              {
+                "id": "fashion",
+                "main-content": {
+                  "title": "Fashion",
+                  "description": "Clothing and accessories"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "HELP_SCREEN"
+                  },
+                  "payload": {
+                    "category": "Fashion"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HELP_SCREEN",
+      "title": "Help Instructions",
+      "terminal": true,
+      "data": {
+        "category": {
+          "type": "string",
+          "__example__": "Electronics"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextBody",
+            "text": "Help Instructions:\n- Browse the selected category to find the items you need.\n- Tap on an item to see more details and add it to your cart.\n- For support, contact our customer service line."
+          },
+          {
+            "type": "TextBody",
+            "text": "`${'Category: ' data.category}`",
+            "visible": "`${data.category != ''}`"
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "selected_category": "${data.category}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

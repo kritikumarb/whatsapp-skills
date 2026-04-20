@@ -1,0 +1,120 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "ID_UPLOAD": [
+      "ADDRESS_UPLOAD"
+    ],
+    "ADDRESS_UPLOAD": [
+      "SUCCESS"
+    ],
+    "SUCCESS": []
+  },
+  "screens": [
+    {
+      "id": "ID_UPLOAD",
+      "title": "User Verification",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Identity Verification"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please upload a clear photo of your ID card (e.g., Passport, Driver's License)."
+          },
+          {
+            "type": "PhotoPicker",
+            "name": "id_photo",
+            "label": "Capture or Select ID Photo",
+            "photo-source": "camera_gallery",
+            "min-uploaded-photos": 1,
+            "max-uploaded-photos": 1
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "ADDRESS_UPLOAD"
+              },
+              "payload": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ADDRESS_UPLOAD",
+      "title": "User Verification",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Address Verification"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please upload a PDF document of your address proof (e.g., Bank Statement, Utility Bill)."
+          },
+          {
+            "type": "DocumentPicker",
+            "name": "address_proof",
+            "label": "Upload Address Proof (PDF)",
+            "allowed-mime-types": [
+              "application/pdf"
+            ],
+            "min-uploaded-documents": 1,
+            "max-uploaded-documents": 1
+          },
+          {
+            "type": "Footer",
+            "label": "Continue",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "SUCCESS"
+              },
+              "payload": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUCCESS",
+      "title": "Submission Successful",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Documents Submitted"
+          },
+          {
+            "type": "TextBody",
+            "text": "Thank you! Your ID and Address proof have been received and are currently under review."
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "id_photo": "${screen.ID_UPLOAD.form.id_photo}",
+                "address_proof": "${screen.ADDRESS_UPLOAD.form.address_proof}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

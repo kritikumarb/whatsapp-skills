@@ -1,0 +1,12 @@
+{
+  "eval_id": 9,
+  "eval_name": "Footer-If-Symmetry",
+  "prompt": "Create a screen with an 'If' condition. In the 'then' branch, include a Footer with a 'navigate' action. In the 'else' branch, don't include a Footer. Provide flow.json.",
+  "assertions": [
+    {
+      "text": "The agent identifies the Footer symmetry rule X-006 and does not produce invalid JSON with only one Footer.",
+      "passed": false,
+      "evidence": ""
+    }
+  ]
+}

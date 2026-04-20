@@ -1,0 +1,87 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "SCREEN_1": [
+      "TERMINAL_SCREEN"
+    ],
+    "TERMINAL_SCREEN": []
+  },
+  "screens": [
+    {
+      "id": "SCREEN_1",
+      "data": {
+        "show_footer": {
+          "type": "boolean",
+          "__example__": true
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Conditional Navigation"
+          },
+          {
+            "type": "TextBody",
+            "text": "This screen demonstrates an If condition controlling the presence of a Footer."
+          },
+          {
+            "type": "If",
+            "condition": "`${data.show_footer}`",
+            "then": [
+              {
+                "type": "Footer",
+                "label": "Navigate to End",
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "TERMINAL_SCREEN"
+                  },
+                  "payload": {
+                    "data_exchange_trigger": "continue"
+                  }
+                }
+              }
+            ],
+            "else": [
+              {
+                "type": "TextBody",
+                "text": "The footer is hidden in this branch."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "TERMINAL_SCREEN",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Flow Complete"
+          },
+          {
+            "type": "TextBody",
+            "text": "You have successfully navigated to the terminal screen."
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "data_exchange_trigger": "finish"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

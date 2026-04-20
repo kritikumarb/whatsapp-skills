@@ -1,0 +1,83 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "SCREEN_A": ["SCREEN_B"],
+    "SCREEN_B": []
+  },
+  "screens": [
+    {
+      "id": "SCREEN_A",
+      "title": "Conditional Footer",
+      "data": {
+        "is_authenticated": {
+          "type": "boolean",
+          "__example__": true
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Welcome"
+          },
+          {
+            "type": "TextBody",
+            "text": "Depending on your status, you might see a navigation button below."
+          },
+          {
+            "type": "If",
+            "condition": "`${data.is_authenticated} == true`",
+            "then": [
+              {
+                "type": "Footer",
+                "label": "Continue to Success",
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "SCREEN_B"
+                  },
+                  "payload": {}
+                }
+              }
+            ],
+            "else": [
+              {
+                "type": "TextBody",
+                "text": "Footer is not available in this state."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "SCREEN_B",
+      "title": "Success",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Process Complete"
+          },
+          {
+            "type": "TextBody",
+            "text": "You have successfully navigated to the terminal screen."
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {}
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

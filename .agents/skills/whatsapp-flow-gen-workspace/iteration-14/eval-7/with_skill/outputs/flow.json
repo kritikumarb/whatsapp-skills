@@ -1,0 +1,110 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "CATEGORIES_SCREEN": ["COMPLETE_SCREEN"],
+    "COMPLETE_SCREEN": []
+  },
+  "screens": [
+    {
+      "id": "CATEGORIES_SCREEN",
+      "title": "Select Category",
+      "data": {},
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "NavigationList",
+            "name": "category_selection",
+            "label": "Categories",
+            "description": "Select a category below to browse products. Help: Tap any item to see details. For further assistance, contact support.",
+            "list-items": [
+              {
+                "id": "electronics",
+                "main-content": {
+                  "title": "Electronics",
+                  "description": "Gadgets and devices"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "screen": "COMPLETE_SCREEN",
+                    "payload": {
+                      "selected_category": "Electronics"
+                    }
+                  }
+                }
+              },
+              {
+                "id": "clothing",
+                "main-content": {
+                  "title": "Clothing",
+                  "description": "Apparel and accessories"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "screen": "COMPLETE_SCREEN",
+                    "payload": {
+                      "selected_category": "Clothing"
+                    }
+                  }
+                }
+              },
+              {
+                "id": "home_garden",
+                "main-content": {
+                  "title": "Home & Garden",
+                  "description": "Furniture and decor"
+                },
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "screen": "COMPLETE_SCREEN",
+                    "payload": {
+                      "selected_category": "Home & Garden"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "COMPLETE_SCREEN",
+      "terminal": true,
+      "title": "Category Selected",
+      "data": {
+        "selected_category": {
+          "type": "string",
+          "__example__": "Electronics"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Selection Confirmed"
+          },
+          {
+            "type": "TextBody",
+            "text": "You have selected the following category: ${data.selected_category}. Our team will contact you with relevant offers."
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "category": "${data.selected_category}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

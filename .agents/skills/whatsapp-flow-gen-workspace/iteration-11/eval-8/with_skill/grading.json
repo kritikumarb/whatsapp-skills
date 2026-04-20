@@ -1,0 +1,10 @@
+{
+  "run_id": "eval-8-with_skill",
+  "expectations": [
+    {
+      "text": "The agent truncates the TextHeading to 80 characters or explains the limit (Rule TH-001).",
+      "passed": false,
+      "evidence": "Agent produced flow.json with 'WELCOME TO THE OFFICIAL WHATSAPP FLOW GENERATOR FOR ADVANCED COMPONENT VALIDATION TESTING' (85 chars), violating Rule TH-001 (80 chars max)."
+    }
+  ]
+}

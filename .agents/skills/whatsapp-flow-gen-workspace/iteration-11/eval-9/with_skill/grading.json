@@ -1,0 +1,10 @@
+{
+  "run_id": "eval-9-with_skill",
+  "expectations": [
+    {
+      "text": "The agent identifies the Footer symmetry rule X-006 and does not produce invalid JSON with only one Footer.",
+      "passed": false,
+      "evidence": "Agent produced flow.json where SCREEN_1 has a Footer in 'then' branch but not in 'else' branch, violating Rule X-006."
+    }
+  ]
+}

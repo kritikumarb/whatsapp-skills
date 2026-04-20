@@ -1,0 +1,36 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "SCREEN_A": []
+  },
+  "screens": [
+    {
+      "id": "SCREEN_A",
+      "terminal": true,
+      "data": {
+        "header": {
+          "type": "string",
+          "__example__": "WELCOME TO THE OFFICIAL WHATSAPP FLOW GENERATOR FOR ADVANCED COMPONENT VALIDATION TESTING"
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "${data.header}"
+          },
+          {
+            "type": "Footer",
+            "label": "Complete",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {}
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

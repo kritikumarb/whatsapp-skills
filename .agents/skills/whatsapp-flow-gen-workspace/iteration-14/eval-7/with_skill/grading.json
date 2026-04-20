@@ -1,0 +1,10 @@
+{
+  "run_id": "eval-7-with_skill",
+  "expectations": [
+    {
+      "text": "The agent identifies the isolation rule X-004/NL-010 and does not mix NavigationList with TextBody on the same screen.",
+      "passed": true,
+      "evidence": "Agent used description property of NavigationList to show instructions, avoiding Rule X-004 violation."
+    }
+  ]
+}

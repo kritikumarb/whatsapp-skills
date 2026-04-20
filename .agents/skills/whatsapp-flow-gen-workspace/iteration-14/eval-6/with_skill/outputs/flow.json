@@ -1,0 +1,50 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "VERIFICATION_SCREEN": []
+  },
+  "screens": [
+    {
+      "id": "VERIFICATION_SCREEN",
+      "title": "User Verification",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Identity Verification"
+          },
+          {
+            "type": "TextBody",
+            "text": "To verify your account, please upload both a photo of your ID and a PDF document of your address proof."
+          },
+          {
+            "type": "DocumentPicker",
+            "name": "verification_docs",
+            "label": "Upload ID & Address Proof",
+            "description": "Please select 2 files: your ID photo (JPG/PNG) and address proof (PDF).",
+            "min-uploaded-documents": 2,
+            "max-uploaded-documents": 2,
+            "allowed-mime-types": [
+              "image/jpeg",
+              "image/png",
+              "application/pdf"
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Submit Documents",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "verification_media": "${form.verification_docs}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

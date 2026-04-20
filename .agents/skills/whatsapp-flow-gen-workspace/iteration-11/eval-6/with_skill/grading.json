@@ -1,0 +1,10 @@
+{
+  "run_id": "eval-6-with_skill",
+  "expectations": [
+    {
+      "text": "The agent identifies the exclusivity rule X-003 and does not place both on the same screen.",
+      "passed": true,
+      "evidence": "Agent result: 'Due to WhatsApp Flow technical constraints (Rule X-003), PhotoPicker and DocumentPicker components are mutually exclusive and cannot coexist on the same screen. ... I implemented a two-step process'."
+    }
+  ]
+}

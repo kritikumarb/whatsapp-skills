@@ -2,63 +2,59 @@
   "version": "7.1",
   "screens": [
     {
-      "id": "CATEGORY_SELECTION",
-      "title": "Select Category",
+      "id": "CATEGORIES_SCREEN",
+      "title": "Main Categories",
       "layout": {
         "type": "SingleColumnLayout",
         "children": [
           {
             "type": "NavigationList",
             "name": "category_list",
-            "label": "Help Categories",
             "list-items": [
               {
-                "id": "account_help",
+                "id": "cat_1",
                 "main-content": {
-                  "title": "Account Help",
-                  "description": "Login and profile"
+                  "title": "Technical Support",
+                  "description": "Hardware and Software"
                 },
                 "on-click-action": {
                   "name": "navigate",
                   "next": {
                     "screen": "HELP_SCREEN",
                     "payload": {
-                      "category": "Account Help",
-                      "instructions": "To manage your account, go to Settings > Profile. You can update your email, password, and notification preferences there."
+                      "category": "Technical Support"
                     }
                   }
                 }
               },
               {
-                "id": "billing_help",
+                "id": "cat_2",
                 "main-content": {
-                  "title": "Billing Help",
-                  "description": "Payments and plans"
+                  "title": "Billing",
+                  "description": "Invoices and Payments"
                 },
                 "on-click-action": {
                   "name": "navigate",
                   "next": {
                     "screen": "HELP_SCREEN",
                     "payload": {
-                      "category": "Billing Help",
-                      "instructions": "For billing inquiries, visit the Billing section in your dashboard. You can view invoices, change your payment method, or upgrade your plan."
+                      "category": "Billing"
                     }
                   }
                 }
               },
               {
-                "id": "general_help",
+                "id": "cat_3",
                 "main-content": {
-                  "title": "General Help",
-                  "description": "Other questions"
+                  "title": "Account Settings",
+                  "description": "Profile and Privacy"
                 },
                 "on-click-action": {
                   "name": "navigate",
                   "next": {
                     "screen": "HELP_SCREEN",
                     "payload": {
-                      "category": "General Help",
-                      "instructions": "If you have any other questions, please contact our support team at support@example.com or visit our online help center."
+                      "category": "Account Settings"
                     }
                   }
                 }
@@ -70,37 +66,33 @@
     },
     {
       "id": "HELP_SCREEN",
-      "title": "${data.category}",
+      "title": "Help Instructions",
       "terminal": true,
-      "data": {
-        "category": {
-          "type": "string",
-          "__example__": "Account Help"
-        },
-        "instructions": {
-          "type": "string",
-          "__example__": "Sample help instructions."
-        }
-      },
       "layout": {
         "type": "SingleColumnLayout",
         "children": [
           {
             "type": "TextHeading",
-            "text": "${data.category}"
+            "text": "Help Center"
           },
           {
             "type": "TextBody",
-            "text": "${data.instructions}",
+            "text": "You have selected: ${data.category}. \n\nPlease follow the instructions below to resolve your issue. If you need further assistance, please contact our support team.",
+            "markdown": true
+          },
+          {
+            "type": "TextBody",
+            "text": "1. Check our FAQ section.\n2. Verify your internet connection.\n3. Restart your device if necessary.",
             "markdown": true
           },
           {
             "type": "Footer",
-            "label": "Finished",
+            "label": "Finish",
             "on-click-action": {
               "name": "complete",
               "payload": {
-                "selected_category": "${data.category}"
+                "status": "help_read",
+                "category": "${data.category}"
               }
             }
           }

@@ -1,0 +1,12 @@
+{
+  "eval_id": 8,
+  "eval_name": "TextHeading-CharLimit",
+  "prompt": "Create a screen with a TextHeading that says exactly: 'WELCOME TO THE OFFICIAL WHATSAPP FLOW GENERATOR FOR ADVANCED COMPONENT VALIDATION TESTING'. Provide flow.json.",
+  "assertions": [
+    {
+      "text": "The agent truncates the TextHeading to 80 characters or explains the limit (Rule TH-001).",
+      "passed": false,
+      "evidence": ""
+    }
+  ]
+}

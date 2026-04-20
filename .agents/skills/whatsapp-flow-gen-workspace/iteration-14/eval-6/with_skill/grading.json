@@ -1,0 +1,10 @@
+{
+  "run_id": "eval-6-with_skill",
+  "expectations": [
+    {
+      "text": "The agent identifies the exclusivity rule X-003 and does not place both on the same screen.",
+      "passed": true,
+      "evidence": "Agent used a single DocumentPicker for both files to avoid Rule X-003 violation."
+    }
+  ]
+}

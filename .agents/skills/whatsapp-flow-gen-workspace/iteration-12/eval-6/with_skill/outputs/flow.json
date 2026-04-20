@@ -1,0 +1,124 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "ID_VERIFICATION": [
+      "ADDRESS_VERIFICATION"
+    ],
+    "ADDRESS_VERIFICATION": [
+      "SUMMARY"
+    ],
+    "SUMMARY": []
+  },
+  "screens": [
+    {
+      "id": "ID_VERIFICATION",
+      "title": "ID Verification",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Step 1: Identity Verification"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please upload a clear photo of your government-issued ID card."
+          },
+          {
+            "type": "PhotoPicker",
+            "name": "id_photo",
+            "label": "Upload ID Photo",
+            "description": "Ensure all details are visible and there is no glare.",
+            "photo-source": "camera_gallery",
+            "min-uploaded-photos": 1,
+            "max-uploaded-photos": 1,
+            "required": true
+          },
+          {
+            "type": "Footer",
+            "label": "Continue",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "ADDRESS_VERIFICATION"
+              },
+              "payload": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ADDRESS_VERIFICATION",
+      "title": "Address Verification",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Step 2: Proof of Address"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please upload a PDF document of your address proof (e.g., utility bill, bank statement)."
+          },
+          {
+            "type": "DocumentPicker",
+            "name": "address_proof",
+            "label": "Upload Address Proof",
+            "description": "PDF format only, max 25MB.",
+            "allowed-mime-types": [
+              "application/pdf"
+            ],
+            "min-uploaded-documents": 1,
+            "max-uploaded-documents": 1,
+            "required": true
+          },
+          {
+            "type": "Footer",
+            "label": "Review Submission",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "SUMMARY"
+              },
+              "payload": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUMMARY",
+      "title": "Summary",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Verification Ready"
+          },
+          {
+            "type": "TextBody",
+            "text": "You have successfully uploaded your ID and address proof. Click 'Complete' to submit for verification."
+          },
+          {
+            "type": "Footer",
+            "label": "Complete",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "id_photo_id": "${screen.ID_VERIFICATION.form.id_photo}",
+                "address_proof_id": "${screen.ADDRESS_VERIFICATION.form.address_proof}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

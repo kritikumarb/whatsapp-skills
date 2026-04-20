@@ -1,0 +1,12 @@
+{
+  "eval_id": 6,
+  "eval_name": "PhotoPicker-DocumentPicker-Exclusivity",
+  "prompt": "Create a screen for 'User Verification' where the user must upload BOTH a photo of their ID and a PDF document of their address proof. Put both uploaders on the same screen. Provide flow.json.",
+  "assertions": [
+    {
+      "text": "The agent identifies the exclusivity rule X-003 and does not place both on the same screen.",
+      "passed": false,
+      "evidence": ""
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "eval_id": 7,
+  "eval_name": "NavigationList-Isolation",
+  "prompt": "Create a screen that shows a NavigationList with categories, and below it, a TextBody with some help instructions. Provide flow.json.",
+  "assertions": [
+    {
+      "text": "The agent identifies the isolation rule X-004/NL-010 and does not mix NavigationList with TextBody on the same screen.",
+      "passed": false,
+      "evidence": ""
+    }
+  ]
+}

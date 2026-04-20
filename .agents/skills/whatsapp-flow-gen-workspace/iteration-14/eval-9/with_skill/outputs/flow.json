@@ -1,0 +1,88 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "SCREEN_A": [
+      "SCREEN_B"
+    ],
+    "SCREEN_B": []
+  },
+  "screens": [
+    {
+      "id": "SCREEN_A",
+      "title": "Conditional Footer Test",
+      "data": {
+        "show_footer": {
+          "type": "boolean",
+          "__example__": true
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "If",
+            "condition": "`${data.show_footer} == true`",
+            "then": [
+              {
+                "type": "TextBody",
+                "text": "Condition is met. The Footer below allows navigation."
+              },
+              {
+                "type": "Footer",
+                "label": "Navigate to Screen B",
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "SCREEN_B"
+                  },
+                  "payload": {}
+                }
+              }
+            ],
+            "else": [
+              {
+                "type": "TextBody",
+                "text": "Condition not met. Note: A Footer is still included here to satisfy Rule X-006 (Symmetry Rule)."
+              },
+              {
+                "type": "Footer",
+                "label": "Also Navigate to Screen B",
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "SCREEN_B"
+                  },
+                  "payload": {}
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "SCREEN_B",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Completion Screen"
+          },
+          {
+            "type": "Footer",
+            "label": "Complete",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {}
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

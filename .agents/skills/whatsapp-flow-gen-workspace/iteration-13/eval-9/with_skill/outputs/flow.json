@@ -1,0 +1,78 @@
+{
+  "version": "7.1",
+  "screens": [
+    {
+      "id": "MAIN_SCREEN",
+      "title": "Main Screen",
+      "data": {
+        "show_footer": {
+          "type": "boolean",
+          "__example__": true
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Conditional Footer Screen"
+          },
+          {
+            "type": "If",
+            "condition": "`${data.show_footer} == true`",
+            "then": [
+              {
+                "type": "Footer",
+                "label": "Continue",
+                "on-click-action": {
+                  "name": "navigate",
+                  "next": {
+                    "type": "screen",
+                    "name": "TERMINAL_SCREEN"
+                  },
+                  "payload": {
+                    "data_exchange_trigger": "continue"
+                  }
+                }
+              }
+            ],
+            "else": [
+              {
+                "type": "TextBody",
+                "text": "Footer is hidden."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "TERMINAL_SCREEN",
+      "title": "Terminal Screen",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Success"
+          },
+          {
+            "type": "TextBody",
+            "text": "You have reached the end."
+          },
+          {
+            "type": "Footer",
+            "label": "Finish",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "status": "success"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

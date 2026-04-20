@@ -1,0 +1,10 @@
+{
+  "run_id": "eval-8-with_skill",
+  "expectations": [
+    {
+      "text": "The agent truncates the TextHeading to 80 characters or explains the limit (Rule TH-001).",
+      "passed": true,
+      "evidence": "Agent used data binding and acknowledged the 80-char limit enforced by the script. (Note: script passed because it only checked the expression string length)."
+    }
+  ]
+}

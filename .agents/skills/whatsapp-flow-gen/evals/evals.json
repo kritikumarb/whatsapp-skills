@@ -20,21 +20,27 @@
       "files": []
     },
     {
-      "id": 3,
-      "prompt": "Create a WhatsApp Flow for booking a service. Screen 1: select a service. Screen 2: select a date using a DatePicker. When a date is selected, it should trigger a data_exchange to fetch available times. Screen 3: select a time. A 'Notice' text should be visible only if 'data.show_notice' is false. Ensure the Flow ends at a terminal screen. Use version 7.1. Provide flow.json and Python backend.",
-      "expected_output": "A flow.json with on-select-action for DatePicker, backticked expression for visible property, data_api_version: 3.0, and a terminal screen.",
+      "id": 6,
+      "prompt": "Create a screen for 'User Verification' where the user must upload BOTH a photo of their ID and a PDF document of their address proof. Put both uploaders on the same screen. Provide flow.json.",
+      "expected_output": "The agent should identify that PhotoPicker and DocumentPicker are mutually exclusive on a single screen (Rule X-003) and instead place them on separate screens or explain why it can't do it as requested.",
       "files": []
     },
     {
-      "id": 4,
-      "prompt": "Create an onboarding WhatsApp Flow for a new app. Screen 1: Welcome message and a mandatory 'Terms and Conditions' OptIn component (with a link to example.com/terms). Only if accepted, navigate to Screen 2. Screen 2: Choose a start date using a DatePicker. Selecting a date MUST trigger a data_exchange to 'check_availability'. Screen 3: Result screen. Show a 'Warning' text ONLY IF 'data.is_available' is false using backticked logic. Screen 4: Terminal success screen. Ensure flow.json has data_api_version: 3.0. Provide flow.json and Python backend.",
-      "expected_output": "A flow.json using OptIn for terms, on-select-action for DatePicker, backticked boolean expressions, data_api_version: 3.0, and a terminal screen.",
+      "id": 7,
+      "prompt": "Create a screen that shows a NavigationList with categories, and below it, a TextBody with some help instructions. Provide flow.json.",
+      "expected_output": "The agent should identify that NavigationList is exclusive and cannot coexist with other components like TextBody (Rule X-004 and NL-010).",
       "files": []
     },
     {
-      "id": 5,
-      "prompt": "Create a WhatsApp Flow for a 'User Profile' setup. Screen 1: Collect Name (init-value from 'data.user_name'). Screen 2: 'Terms' OptIn component. Screen 3: 'Status' screen. Show a 'Please complete your profile' text ONLY if 'data.profile_complete' is false using explicit comparison (== false) in backticks. Ensure NO manual declaration of 'error' keywords in flow.json. Provide flow.json and Python backend with mandatory error handling catching str(e).",
-      "expected_output": "Correct TextInput properties, explicit boolean comparisons, no reserved keywords in data blocks, and robust backend error handling.",
+      "id": 8,
+      "prompt": "Create a screen with a TextHeading that says exactly: 'WELCOME TO THE OFFICIAL WHATSAPP FLOW GENERATOR FOR ADVANCED COMPONENT VALIDATION TESTING'. Provide flow.json.",
+      "expected_output": "The prompt string is 85 characters. Rule TH-001 limits TextHeading to 80 characters. The agent should truncate or error.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Create a screen with an 'If' condition. In the 'then' branch, include a Footer with a 'navigate' action. In the 'else' branch, don't include a Footer. Provide flow.json.",
+      "expected_output": "The agent should identify that Footer inside If must exist in both branches (Rule X-006) and MUST use 'complete' if it's a terminal screen, or otherwise follow Footer symmetry rules.",
       "files": []
     }
   ]

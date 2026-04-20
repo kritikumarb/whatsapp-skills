@@ -1,0 +1,119 @@
+{
+  "version": "7.1",
+  "data_api_version": "3.0",
+  "routing_model": {
+    "ID_VERIFICATION": ["ADDRESS_VERIFICATION"],
+    "ADDRESS_VERIFICATION": ["SUMMARY"],
+    "SUMMARY": []
+  },
+  "screens": [
+    {
+      "id": "ID_VERIFICATION",
+      "title": "User Verification",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Identity Verification"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please upload a clear photo of your government-issued ID (e.g., Driver's License or Passport)."
+          },
+          {
+            "type": "PhotoPicker",
+            "name": "id_photo",
+            "label": "Upload ID Photo",
+            "description": "Ensure all details are readable",
+            "min-uploaded-photos": 1,
+            "max-uploaded-photos": 1
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "ADDRESS_VERIFICATION"
+              },
+              "payload": {
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ADDRESS_VERIFICATION",
+      "title": "User Verification",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Address Verification"
+          },
+          {
+            "type": "TextBody",
+            "text": "Please upload a PDF document as proof of your current address (e.g., Utility Bill or Bank Statement)."
+          },
+          {
+            "type": "DocumentPicker",
+            "name": "address_proof",
+            "label": "Upload Address Proof (PDF)",
+            "description": "Document must be from the last 3 months",
+            "min-uploaded-documents": 1,
+            "max-uploaded-documents": 1,
+            "allowed-mime-types": [
+              "application/pdf"
+            ]
+          },
+          {
+            "type": "Footer",
+            "label": "Next",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "SUMMARY"
+              },
+              "payload": {
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUMMARY",
+      "title": "Verification Summary",
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "Ready to Submit"
+          },
+          {
+            "type": "TextBody",
+            "text": "Thank you for uploading your documents. Please tap 'Complete' to submit them for verification."
+          },
+          {
+            "type": "Footer",
+            "label": "Complete",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "id_photo": "${screen.ID_VERIFICATION.form.id_photo}",
+                "address_proof": "${screen.ADDRESS_VERIFICATION.form.address_proof}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

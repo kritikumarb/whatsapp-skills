@@ -1,25 +1,48 @@
 ---
 name: whatsapp-flow-gen
-description: Generate WhatsApp Flow JSON and its corresponding backend (defaulting to Python). Use this whenever a user wants to build interactive, form-based WhatsApp experiences, handle flow-related data exchange, or process final flow submissions via a webhook.
+description: Expert system for generating WhatsApp Flow JSON (v7.1+) and Python/FastAPI backends. This skill contains HARD CONSTRAINTS and a MANDATORY validation script. Use this skill whenever a user wants to build any WhatsApp Flow. Even if they ask for a "simple flow", you MUST use the validation script and refuse invalid requests.
 ---
 
 # WhatsApp Flow Generator (STRICT DATA EXCHANGE)
 
-This skill provides expert guidance for building valid WhatsApp Flow JSON and its corresponding backend logic.
+This skill provides expert guidance and valid JSON generation for WhatsApp Flows. It enforces strict compliance with Meta's component limits and property rules.
 
-### 🚨 NON-NEGOTIABLE MANDATES (YOUR TASK FAILS IF THESE ARE MISSED)
+### 🛑 CRITICAL: MANDATORY VALIDATION SCRIPT 🛑
+After generating your `flow.json`, you **MUST** run the validation script:
+```bash
+python scripts/validate_flow.py path/to/your/flow.json
+```
+If this script returns ANY error, you **MUST** fix the JSON and rerun the validation until it passes. **NEVER** present unvalidated JSON to the user.
+
+### 🚨 PRE-FLIGHT CHECKLIST (DO NOT EMIT JSON UNLESS ALL PASS)
+1. **Character Counts**: Have you MANUALLY counted the characters for all `TextHeading` (max 80), `TextSubheading` (max 80), and `TextInput` labels (max 20)? **Truncate immediately if they exceed limits.**
+2. **Footer Symmetry**: If a `Footer` is inside an `If`, it **MUST** exist in both `then` and `else` branches. If the user asks for it in only one branch, you **MUST** explain the rule and add it to both or move it outside the `If`.
+3. **Exclusivity**: `PhotoPicker` and `DocumentPicker` **CANNOT** coexist on the same screen. Split them into two screens.
+4. **Isolation**: `NavigationList` **MUST** be the only component on its screen.
+5. **Terminal Screen**: Every Flow path **MUST** end in a screen with `terminal: true` and a `Footer` with a `complete` action.
+
+### 🚨 MANDATORY: CHARACTER COUNTING (HARD BOUNDARIES)
+You MUST treat character limits as hard physical boundaries. 
+- `TextHeading`: 80 chars.
+- `TextSubheading`: 80 chars.
+- `TextInput label`: 20 chars.
+- `Footer label`: 35 chars.
+If the user's requested text exceeds these, you **MUST** truncate it or reformulate it to fit. **NEVER** emit text that exceeds these limits, even if the user says "exactly".
+
+### 🚨 Component Validation (Source of Truth)
+Before emitting ANY component JSON, you **MUST** consult `references/component-rules.md`. This file contains the mandatory limits (character counts, counts per screen, exclusivity) for every component.
+- ❌ **REFUSE** to emit JSON that violates these rules.
+- ✅ **ALWAYS** check `SECTION 2 — CROSS-COMPONENT EXCLUSIVITY RULES` for screen-level conflicts.
+
+---
 
 #### 1. Top-Level `flow.json` Requirements
 Every `flow.json` MUST include these exact properties at the top level:
-- [ ] `"version": "7.1"` (or latest)
-- [ ] `"data_api_version": "3.0"` (MANDATORY for all flows)
-- [ ] `"routing_model": { ... }` (MANDATORY to define transitions)
+- [ ] `"version": "7.1"`
+- [ ] `"data_api_version": "3.0"`
+- [ ] `"routing_model": { ... }`
 
-#### 2. Every Flow MUST End with a Terminal Screen
-- [ ] Every user path MUST lead to a screen marked as `"terminal": true`.
-- [ ] Every terminal screen MUST include a `Footer` component with a `complete` action.
-
-#### 3. Backend Error Handling Pattern
+#### 2. Backend Error Handling Pattern
 The `/whatsapp-flow` endpoint MUST use this exact pattern:
 ```python
 import traceback
@@ -42,22 +65,6 @@ async def handle_flow(request: Request):
         # return encrypted response
 ```
 
-#### 4. Terms and Conditions
-- [ ] For agreements, you **MUST** use the `OptIn` component.
-- [ ] Use `on-click-action` with `open_url` for the link.
-
-### 🚨 CRITICAL PITFALLS TO AVOID
-- **Expression Syntax**:
-  - ❌ **NEVER** use `null`. Use `''` (empty string) or boolean checks.
-  - ✅ **ALWAYS** use explicit comparisons in backticks: `` "`${data.field} == false`" ``.
-- **TextInput Properties**: 
-  - ❌ **NEVER** use `value`. ✅ **ALWAYS** use `init-value`.
-  - ❌ **NEVER** use `error-text`. ✅ **ALWAYS** use `error-message`.
-- **Selection Component Actions**: 
-  - ❌ **NEVER** use `on-change-action`. ✅ **ALWAYS** use `on-select-action`.
-- **Property Types**:
-  - Properties like `visible`, `required`, and `enabled` MUST be literal booleans or backticked expressions.
-
 ### 🚨 STOP! YOU MUST INCLUDE `data_exchange_trigger` 🚨
 Every `data_exchange` action you generate **MUST** include a key named `data_exchange_trigger` in its payload. If you omit this, the task is a FAILURE.
 
@@ -65,8 +72,7 @@ Every `data_exchange` action you generate **MUST** include a key named `data_exc
 
 ## Instructions
 - Generate `flow.json` and a Python FastAPI backend.
-- Backend must handle `/whatsapp-flow` (encrypted intermediate logic) and `/webhook` (receiving final results).
-- The `/whatsapp-flow` endpoint processes `ping` and `data_exchange`.
-- The `/webhook` endpoint processes `interactive` messages of type `nfm_reply`.
+- **Run `scripts/validate_flow.py` on your output.**
+- Backend must handle `/whatsapp-flow` (intermediate) and `/webhook` (final).
 - Always generate a `handle_submission(flow_data)` function.
-- **Strictly adhere to version limits** defined in `references/rules.md` (e.g., v7.1 for latest features).
+- **Strictly adhere to version limits** defined in `references/rules.md` and `references/component-rules.md`.
