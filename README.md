@@ -23,7 +23,14 @@ To use this skill, mention it explicitly in your prompts to your AI assistant:
 
 To install this skill in Gemini CLI or other "vibe coding" AI tools that support the `.agents` specification:
 
-### Option 1: Gemini CLI (Recommended)
+### Option 1: npx skills (Recommended)
+Run the following command in your project root:
+
+```bash
+npx skills add https://github.com/kritikumarb/whatsapp-skills --skill whatsapp-flow-gen
+```
+
+### Option 2: Gemini CLI
 Run the following command in your project root:
 
 ```bash
