@@ -68,6 +68,19 @@ async def handle_flow(request: Request):
 ### 🚨 STOP! YOU MUST INCLUDE `data_exchange_trigger` 🚨
 Every `data_exchange` action you generate **MUST** include a key named `data_exchange_trigger` in its payload. If you omit this, the task is a FAILURE.
 
+### 🚨 CRITICAL PITFALLS TO AVOID
+- **Expression Syntax**:
+  - ❌ **NEVER** use `null`. Use `''` (empty string) or boolean checks.
+  - ✅ **ALWAYS** use explicit comparisons: `"${data.field} == false"`.
+- **TextInput Properties**: 
+  - ❌ **NEVER** use `value`. ✅ **ALWAYS** use `init-value`.
+  - ❌ **NEVER** use `error-text`. ✅ **ALWAYS** use `error-message`.
+  - ❌ **NEVER** use `max-length` or `min-length`. ✅ **ALWAYS** use `max-chars` and `min-chars` for `TextInput` and `TextArea`.
+- **Selection Component Data**:
+  - ❌ **NEVER** use `options`. ✅ **ALWAYS** use `data-source` for `Dropdown`, `CheckboxGroup`, and `RadioButtonsGroup`.
+- **Property Types**:
+  - Properties like `visible`, `required`, and `enabled` MUST be literal booleans or backticked expressions.
+
 ---
 
 ## Instructions

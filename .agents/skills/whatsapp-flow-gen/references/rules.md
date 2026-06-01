@@ -91,7 +91,7 @@ Only declare `routing_model` when the Flow uses a Data Endpoint.
 
 ### 4.1 Nested Expression Syntax (v6.0+)
 
-Wrap property value in backticks to enable expressions. The result type must match the property's expected type.
+Wrap property value in double quotes and use the ${...} syntax to enable expressions. The result type must match the property's expected type.
 
 | Operation         | Operators          | Types Allowed                | Return Type |
 |-------------------|--------------------|------------------------------|-------------|
@@ -102,8 +102,8 @@ Wrap property value in backticks to enable expressions. The result type must mat
 | Arithmetic        | `+`, `-`, `/`, `%` | number                       | number      |
 
 ```json
-"visible": "`${form.age} >= 18 && ${form.consent} == true`"
-"text":    "`'Hello ' ${form.first_name} ', you are ' ${form.age} ' years old.'`"
+"visible": "${form.age} >= 18 && ${form.consent} == true"
+"text":    "'Hello ' ${form.first_name} ', you are ' ${form.age} ' years old.'"
 ```
 
 ---
@@ -190,7 +190,7 @@ Same as TextBody but rendered smaller. Max **4096 chars**.
 ### 7.4 TextArea
 
 - `label` max **20 chars**.
-- `max-length` default **600 chars**.
+- `max-chars` default **600 chars**.
 
 ---
 

@@ -168,7 +168,7 @@ Rules that govern which components can or cannot coexist on the same screen.
 | `TA-002` | `label` | **Required.** Dynamic. Max **20 characters**. |
 | `TA-003` | `label-variant` | `[OPTIONAL]` Value: `"large"`. **Requires v7.0+**. |
 | `TA-004` | `required` | `[OPTIONAL]` Boolean. Supports dynamic binding. |
-| `TA-005` | `max-length` | `[OPTIONAL]` Dynamic. Default: **600 characters**. |
+| `TA-005` | `max-chars` | `[OPTIONAL]` Dynamic. Default: **600 characters**. |
 | `TA-006` | `helper-text` | `[OPTIONAL]` Dynamic. Max **80 characters**. |
 | `TA-007` | `enabled` | `[OPTIONAL]` Boolean or dynamic. Default: `true`. |
 | `TA-008` | `init-value` | `[OPTIONAL]` Dynamic. Outside Form only. **Requires v4.0+**. |
@@ -361,6 +361,7 @@ All rules from `CG-001` through `CG-018` apply, with these differences:
 | `EL-002` | `on-click-action` | **Required.** Allowed: `data_exchange`, `navigate`. `open_url` also allowed from **v6.0+**. |
 | `EL-003` | `visible` | `[OPTIONAL]` Boolean or dynamic. Default: `true`. |
 | `EL-004` | Screen limit | Max **2** EmbeddedLink components per screen (cross-ref `X-011`). |
+| `EL-005` | **Pattern** | **Button Substitute**: Since WhatsApp Flows have NO standalone 'Button' component, use `EmbeddedLink` for any in-line call-to-action (CTA) that requires `data_exchange` or `navigate`. |
 
 ---
 

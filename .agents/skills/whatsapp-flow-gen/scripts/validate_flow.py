@@ -51,6 +51,19 @@ def validate_flow(flow_path):
                 label = c.get("label", "")
                 if len(label) > 20:
                     errors.append(f"ERROR screen '{sid}': TextInput label exceeds 20 chars (current: {len(label)}) (Rule TI-002)")
+            
+            # Check for 'length' instead of 'chars'
+            if "max-length" in c:
+                errors.append(f"ERROR screen '{sid}': {c.get('type')} MUST use 'max-chars' instead of 'max-length'")
+            if "min-length" in c:
+                errors.append(f"ERROR screen '{sid}': {c.get('type')} MUST use 'min-chars' instead of 'min-length'")
+
+            # Check for 'options' vs 'data-source'
+            if c.get("type") in ["Dropdown", "CheckboxGroup", "RadioButtonsGroup", "ChipsSelector"]:
+                if "options" in c:
+                    errors.append(f"ERROR screen '{sid}': {c.get('type')} MUST use 'data-source' instead of 'options'")
+                if "data-source" not in c and c.get("type") != "ChipsSelector": # ChipsSelector data-source is required but let's be specific
+                     errors.append(f"ERROR screen '{sid}': {c.get('type')} is missing 'data-source'")
                     
     if errors:
         for err in errors:
